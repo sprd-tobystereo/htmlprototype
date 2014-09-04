@@ -2,108 +2,121 @@
 "CodeKitInfo": "This is a CodeKit 2.x project configuration file. It is designed to sync project settings across multiple machines. MODIFYING THE CONTENTS OF THIS FILE IS A POOR LIFE DECISION. If you do so, you will likely cause CodeKit to crash. This file is not useful unless accompanied by the project that created it in CodeKit 2. This file is not backwards-compatible with CodeKit 1.x. For more information, see: http:\/\/incident57.com\/codekit",
 "creatorBuild": "17682",
 "files": {
-	"\/client\/foundation\/css\/foundation.css": {
+	"\/htmlprototype\/client\/foundation\/css\/foundation.css": {
 		"fileType": 16,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/client\/foundation\/css\/foundation.css",
+		"inputAbbreviatedPath": "\/htmlprototype\/client\/foundation\/css\/foundation.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/client\/foundation\/css\/normalize.css": {
+	"\/htmlprototype\/client\/foundation\/css\/normalize.css": {
 		"fileType": 16,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/client\/foundation\/css\/normalize.css",
+		"inputAbbreviatedPath": "\/htmlprototype\/client\/foundation\/css\/normalize.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/countries.md": {
+	"\/htmlprototype\/countries.md": {
 		"enableFootnoteSupport": 0,
 		"enableSmartyPants": 1,
 		"expandTabs": 1,
 		"fileType": 4096,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/countries.md",
-		"outputAbbreviatedPath": "\/countries.html",
+		"inputAbbreviatedPath": "\/htmlprototype\/countries.md",
+		"outputAbbreviatedPath": "\/htmlprototype\/countries.html",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/css\/LendLib.css": {
+	"\/htmlprototype\/htmlprototype.css": {
 		"fileType": 16,
 		"ignore": 1,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/css\/LendLib.css",
+		"inputAbbreviatedPath": "\/htmlprototype\/htmlprototype.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/LendLib.css": {
-		"fileType": 16,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/LendLib.css",
-		"outputAbbreviatedPath": "No Output Path",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
-		},
-	"\/LendLib.html": {
+	"\/htmlprototype\/htmlprototype.html": {
 		"fileType": 8192,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/LendLib.html",
+		"inputAbbreviatedPath": "\/htmlprototype\/htmlprototype.html",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/LendLib.scss": {
+	"\/htmlprototype\/htmlprototype.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 1,
+		"inputAbbreviatedPath": "\/htmlprototype\/htmlprototype.js",
+		"outputAbbreviatedPath": "\/htmlprototype\/min\/htmlprototype-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/htmlprototype\/htmlprototype.scss": {
 		"createSourceMap": 0,
 		"debugStyle": 0,
 		"decimalPrecision": 5,
 		"fileType": 4,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/LendLib.scss",
-		"outputAbbreviatedPath": "\/css\/LendLib.css",
+		"inputAbbreviatedPath": "\/htmlprototype\/htmlprototype.scss",
+		"outputAbbreviatedPath": "\/htmlprototype\/htmlprototype.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 0,
-		"shouldRunAutoprefixer": 0,
-		"shouldRunBless": 0,
+		"shouldRunAutoprefixer": 1,
+		"shouldRunBless": 1,
 		"useLibsass": 0
 		},
-	"\/public\/img\/grid.png": {
+	"\/htmlprototype\/min\/htmlprototype-min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/htmlprototype\/min\/htmlprototype-min.js",
+		"outputAbbreviatedPath": "\/htmlprototype\/min\/min\/htmlprototype-min-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 0,
+		"syntaxCheckerStyle": 0
+		},
+	"\/htmlprototype\/public\/img\/grid.png": {
 		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 375,
-		"inputAbbreviatedPath": "\/public\/img\/grid.png",
-		"outputAbbreviatedPath": "\/public\/img\/grid.png",
+		"inputAbbreviatedPath": "\/htmlprototype\/public\/img\/grid.png",
+		"outputAbbreviatedPath": "\/htmlprototype\/public\/img\/grid.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/public\/img\/list.png": {
+	"\/htmlprototype\/public\/img\/list.png": {
 		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 485,
-		"inputAbbreviatedPath": "\/public\/img\/list.png",
-		"outputAbbreviatedPath": "\/public\/img\/list.png",
+		"inputAbbreviatedPath": "\/htmlprototype\/public\/img\/list.png",
+		"outputAbbreviatedPath": "\/htmlprototype\/public\/img\/list.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/public\/img\/table.png": {
+	"\/htmlprototype\/public\/img\/table.png": {
 		"fileType": 32768,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
 		"initialSize": 760,
-		"inputAbbreviatedPath": "\/public\/img\/table.png",
-		"outputAbbreviatedPath": "\/public\/img\/table.png",
+		"inputAbbreviatedPath": "\/htmlprototype\/public\/img\/table.png",
+		"outputAbbreviatedPath": "\/htmlprototype\/public\/img\/table.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -116,14 +129,14 @@
 	},
 "projectAttributes": {
 	"bowerAbbreviatedPath": "",
-	"displayValue": "LendLib",
+	"displayValue": "htmlprototype",
 	"displayValueWasSetByUser": 0,
-	"iconImageName": "globe_gray"
+	"iconImageName": "harddrive_orange"
 	},
 "projectSettings": {
 	"alwaysUseExternalServer": 0,
 	"animateCSSInjections": 1,
-	"autoApplyPSLanguageSettingsStyle": 1,
+	"autoApplyPSLanguageSettingsStyle": 0,
 	"autoprefixerBrowserString": "> 1%, last 2 versions, Firefox ESR, Opera 12.1",
 	"autoSyncProjectSettingsFile": 1,
 	"browserRefreshDelay": 0,
@@ -140,7 +153,7 @@
 			"flagValue": -1
 			},
 		"camel_case_classes": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"colon_assignment_spacing": {
@@ -152,7 +165,7 @@
 			"flagValue": 10
 			},
 		"duplicate_key": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"empty_constructor_needs_parens": {
@@ -160,7 +173,7 @@
 			"flagValue": -1
 			},
 		"indentation": {
-			"active": 0,
+			"active": 1,
 			"flagValue": 2
 			},
 		"line_endings": {
@@ -180,11 +193,11 @@
 			"flagValue": 3
 			},
 		"no_backticks": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"no_debugger": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"no_empty_functions": {
@@ -196,7 +209,7 @@
 			"flagValue": -1
 			},
 		"no_implicit_braces": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"no_implicit_parens": {
@@ -212,23 +225,23 @@
 			"flagValue": -1
 			},
 		"no_stand_alone_at": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"no_tabs": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"no_throwing_strings": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"no_trailing_semicolons": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"no_trailing_whitespace": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"no_unnecessary_double_quotes": {
@@ -236,7 +249,7 @@
 			"flagValue": -1
 			},
 		"no_unnecessary_fat_arrows": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"non_empty_constructor_needs_parens": {
@@ -291,7 +304,7 @@
 			"flagValue": -1
 			},
 		"bitwise": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"boss": {
@@ -299,7 +312,7 @@
 			"flagValue": -1
 			},
 		"browser": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"camelcase": {
@@ -311,7 +324,7 @@
 			"flagValue": -1
 			},
 		"curly": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"debug": {
@@ -327,7 +340,7 @@
 			"flagValue": -1
 			},
 		"eqeqeq": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"eqnull": {
@@ -355,7 +368,7 @@
 			"flagValue": -1
 			},
 		"freeze": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"funcscope": {
@@ -379,7 +392,7 @@
 			"flagValue": -1
 			},
 		"jquery": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"lastsemic": {
@@ -387,7 +400,7 @@
 			"flagValue": -1
 			},
 		"latedef": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"laxbreak": {
@@ -435,11 +448,11 @@
 			"flagValue": -1
 			},
 		"newcap": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"noarg": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"node": {
@@ -455,7 +468,7 @@
 			"flagValue": -1
 			},
 		"nonew": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"nonstandard": {
@@ -463,7 +476,7 @@
 			"flagValue": -1
 			},
 		"notypeof": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"noyield": {
@@ -491,7 +504,7 @@
 			"flagValue": -1
 			},
 		"regexp": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"rhino": {
@@ -527,11 +540,11 @@
 			"flagValue": -1
 			},
 		"undef": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"unused": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"withstmt": {
@@ -561,7 +574,7 @@
 			"flagValue": -1
 			},
 		"browser": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"closure": {
@@ -693,7 +706,7 @@
 	"sassAutoOutputPathRelativePath": "..\/css",
 	"sassAutoOutputPathReplace1": "sass",
 	"sassAutoOutputPathReplace2": "css",
-	"sassAutoOutputPathStyle": 2,
+	"sassAutoOutputPathStyle": 0,
 	"sassCreateSourceMap": 0,
 	"sassDebugStyle": 0,
 	"sassDecimalPrecision": 5,
@@ -701,7 +714,7 @@
 	"sassUseLibsass": 0,
 	"shouldRunAutoprefixer": 0,
 	"shouldRunBless": 0,
-	"skippedItemsString": ".svn, .git, .hg, log, _logs, _cache, cache, logs, *.js",
+	"skippedItemsString": ".svn, .git, .hg, log, _logs, _cache, cache, logs, .js",
 	"slimAutoOutputPathEnabled": 1,
 	"slimAutoOutputPathFilenamePattern": "*.html",
 	"slimAutoOutputPathRelativePath": "",

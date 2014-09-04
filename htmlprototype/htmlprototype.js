@@ -23,8 +23,8 @@ if (Meteor.isClient) {
   Session.set('editing_tag_id');
   Session.set('new_tag', false);
   Session.set('tag_filters');
-  Session.set('status_filters_labels');
-  Session.set('status_filters_values');
+  Session.set('status_filters_labels', []);
+  Session.set('status_filters_values', []);
   // We are declaring the 'adding_category' flag
   Session.set('adding_asset', false);
   Session.set('editing_asset', '');
@@ -194,10 +194,18 @@ if (Meteor.isClient) {
     }
   };
 
-  Template.assets.newAssetReviewed = function () {
+  Template.assets.newAssetReviewedNotApproved = function () {
     var searchvalue = Session.get('editing_asset');
     if(searchvalue != '') {
-      if(assets.findOne({'_id': searchvalue}).review == 'reviewed')
+      if(assets.findOne({'_id': searchvalue}).review == 'reviewed not approved')
+      return "checked";
+    }
+  };
+
+  Template.assets.newAssetReviewedApproved = function () {
+    var searchvalue = Session.get('editing_asset');
+    if(searchvalue != '') {
+      if(assets.findOne({'_id': searchvalue}).review == 'reviewed approved')
       return "checked";
     }
   };
@@ -272,11 +280,19 @@ if (Meteor.isClient) {
   Template.asset.assetnotfilteredbystatus = function () {
     var the_labels = Session.get('status_filters_labels');
     var the_values = Session.get('status_filters_values');
+
+
     var match = 0;
-    if(typeof the_labels !== 'undefined' && the_labels.length > -1){
+
+    if(the_labels.length >= 0){
       for(i=0;i<the_labels.length;i++){
-        console.log(this.the_labels[i] + " " + the_values[i]);
-        if(this.the_labels[i] == the_values[i]) {
+        if(typeof the_labels[i] == 'undefined') {
+          the_labels.splice(i, 1); 
+          the_values.splice(i, 1); 
+          Session.set('status_filters_labels', the_labels);
+          Session.set('status_filters_values', the_values);
+        }
+        if(this[the_labels[i]] == the_values[i]) {
           match++;
         }
       }
@@ -290,6 +306,8 @@ if (Meteor.isClient) {
     } else {
       return true;
     }
+
+    
   }
 
   Template.asset.id = function () {
@@ -448,17 +466,12 @@ if (Meteor.isClient) {
         u.push(the_value);
       } else {
         var t_index = t.indexOf(the_label);
-        var u_index = u.indexOf(the_value);
-        if(t_index > -1) {
-          t.splice(t_index, 1); 
-        }
-        if(u_index > -1) {
-          u.splice(u_index, 1); 
-        }
+        t.splice(t_index, 1); 
+        u.splice(t_index, 1);   
       }
       Session.set('status_filters_labels', t);
       Session.set('status_filters_values', u);
-
+      
       console.log(Session.get('status_filters_labels'));
       console.log(Session.get('status_filters_values'));
     }
@@ -470,6 +483,7 @@ if (Meteor.isClient) {
     'click #btnNewAsset': function (e,t) {
       // Session.set('editing_asset', '');
       Session.set('adding_asset', true);
+      Session.set('editing_asset', '');
       Meteor.flush();
       focusText(t.find("#newAssetName"));
     },

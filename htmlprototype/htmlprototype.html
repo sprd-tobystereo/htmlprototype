@@ -32,8 +32,8 @@
 
 <template name="zeroStateAddTag">
 {{#if zeroStateAddTag}}
-	<h2>go for it</h2>
 	<div class="small-4 columns">
+		<h2>Add Tag</h2>
 		<input type="text" id="zeroStateAddTag_new_tag_name">
 		<button id="zeroStateAddTag_new_tag_save" class="tiny button primary">save new tag</button>
 	</div>	
@@ -74,22 +74,35 @@
 		<input type="checkbox" name="assetFiltersUsage" id="assetFiltersUsed" data-label="usage" data-value="used" class="assetFiltersTag tagcheckbox">
 		<label for="assetFiltersUsed" class="tag">used</label>
 
+		<hr>
+
+		<h5>Review Status:</h5>
+		<input type="checkbox" name="assetFiltersReview" id="assetFiltersNotReviewed" data-label="review" data-value="not reviewed" class="assetFiltersTag tagcheckbox">
+		<label for="assetFiltersNotReviewed" class="tag">not reviewed</label>
+		<input type="checkbox" name="assetFiltersReview" id="assetFiltersInReview" data-label="review" data-value="in review" class="assetFiltersTag tagcheckbox">
+		<label for="assetFiltersInReview" class="tag">in review</label>
+		<input type="checkbox" name="assetFiltersReview" id="assetFiltersReviewedNotApproved" data-label="review" data-value="reviewed not approved" class="assetFiltersTag tagcheckbox">
+		<label for="assetFiltersReviewedNotApproved" class="tag">reviewed (not approved)</label>
+		<input type="checkbox" name="assetFiltersReview" id="assetFiltersReviewedApproved" data-label="review" data-value="reviewed approved" class="assetFiltersTag tagcheckbox">
+		<label for="assetFiltersReviewedApproved" class="tag">reviewed (approved)</label>
+
 	</div>
 </template>
 
 <template name="tags">
 	{{#if showGLobalTags}}	
 		<div id="tags" class="row">
-			<h2 class="title">My Tags</h2>		
-			<div class="row">
-				{{#if new_tag}}
-					<div class="small-4 columns">
+			<div class="small-12 columns">
+				<h2 class="title">My Tags</h2>		
+				<div class="row">
+					{{#if new_tag}}
 						<input type="text" id="tag_new_tag_name">
 						<button id="tag_new_tag_save" class="tiny button primary">save new tag</button>
-					</div>	
-				{{else}}
-					<button class="category button primary small" id="tag_add_new">&plus; add new tag</button>
-				{{/if}}
+						
+					{{else}}
+						<button class="category button primary small" id="tag_add_new">&plus; add new tag</button>
+					{{/if}}
+				</div>	
 			</div>
 			{{#each tags}}
 				{{>tag}}
@@ -166,8 +179,10 @@
 				<label for="newAssetReviewNotReviewed">Not Reviewed</label>
 				<input type="radio" name="newAssetReview" id="newAssetReviewInReview" value="in review" checked="{{newAssetInReview}}">
 				<label for="newAssetReviewInReview">In Review</label>
-				<input type="radio" name="newAssetReview" id="newAssetReviewReviewed" value="reviewed" checked="{{newAssetReviewed}}">
-				<label for="newAssetReviewReviewed">Reviewed</label>
+				<input type="radio" name="newAssetReview" id="newAssetReviewReviewedNotApproved" value="reviewed not approved" checked="{{newAssetReviewedNotApproved}}">
+				<label for="newAssetReviewReviewed">Reviewed (Not Approved)</label>
+				<input type="radio" name="newAssetReview" id="newAssetReviewReviewedApproved" value="reviewed approved" checked="{{newAssetReviewedApproved}}">
+				<label for="newAssetReviewReviewed">Reviewed (Approved)</label>
 
 
 				<hr>
@@ -227,8 +242,10 @@
 		{{#if assetnotfilteredbystatus}}
 			{{#if assetgridview}}
 			<div class="flexigrid-item" id="{{_id}}">
-				<figure class="box">
-					<img src="{{url}}" alt="{{description}}">
+				<div class="box">
+					<figure>
+						<img src="{{url}}" alt="{{description}}">
+					</figure>
 					<h4><strong>{{name}}</strong></h4>
 					<button class="secondary tiny edit_asset_button" data-id="{{_id}}">Edit</button>
 					<!-- <figcaption>{{description}}</figcaption>
@@ -237,7 +254,7 @@
 						{{> singletag}}
 					{{/each}}
 					</div> -->
-				</figure>
+				</div>
 			</div>
 
 			{{else}}
