@@ -1,0 +1,25 @@
+countries.insert({country: "Europe",language:"English"});
+
+countries.insert({country: "Germany",language:"German"});
+countries.insert({country: "France",language:"French"});
+countries.insert({country: "United Kingdom",language:"English"});
+countries.insert({country: "Belgium (Dutch)",language:"Dutch"});
+countries.insert({country: "Belgium (French)",language:"French"});
+countries.insert({country: "Denmark",language:"Danish"});
+countries.insert({country: "Spain",language:"Spanish"});
+countries.insert({country: "Ireland",language:"English"});
+countries.insert({country: "Italy",language:"Italian"});
+countries.insert({country: "Netherlands",language:"Dutch"});
+countries.insert({country: "Norway",language:"Norwegian"});
+countries.insert({country: "Poland",language:"Polish"});
+countries.insert({country: "Switzerland (German)",language:"German"});
+countries.insert({country: "Switzerland (French)",language:"French"});
+countries.insert({country: "Switzerland (Italian)",language:"Italian"});
+countries.insert({country: "Finland",language:"Finnish"});
+countries.insert({country: "Sweden",language:"Swedish"});
+countries.insert({country: "Austria",language:"German"});
+countries.insert({country: "United States",language:"English"});
+countries.insert({country: "Canada (English)",language:"English"});
+countries.insert({country: "Canada (French)",language:"French"});
+countries.insert({country: "Brazil",language:"Portugese"});
+countries.insert({country: "Australia"language:"English"});

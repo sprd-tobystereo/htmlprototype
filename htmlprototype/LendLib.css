@@ -1,0 +1,7 @@
+/* CSS declarations go here */
+
+.tag {
+	display: block;
+	float: left;
+	margin-right: 5px;
+}

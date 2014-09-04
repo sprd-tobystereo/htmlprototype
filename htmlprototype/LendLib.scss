@@ -1,0 +1,278 @@
+
+@mixin font-headline {
+	font-family: 'Roboto Slab', serif !important;
+}
+
+@mixin font-text {
+	font-family: 'Open Sans', sans-serif !important;
+}
+
+*, *:before, *:after {
+	
+	box-sizing: border-box !important;
+	-moz-box-sizing: border-box !important;
+	-webkit-box-sizing: border-box !important;
+
+	// -webkit-transition: all 0.3s 0s ease-out;  /* Saf3.2+, Chrome */
+	// -moz-transition: all 0.3s 0s ease-out;  /* FF4+ */
+	// -ms-transition: all 0.3s 0s ease-out;  /* IE10? */
+	// -o-transition: all 0.3s 0s ease-out;  /* Opera 10.5+ */
+	// transition: all 0.3s 0s ease-out; 
+}
+
+body {
+	@include font-text;
+	
+}
+
+h1, h2, h3, h4, h5 {
+	@include font-headline;	
+}
+
+
+/* CSS declarations go here */
+$break-small: 480px;
+$break-medium: 800px;
+$break-large: 1280px;
+
+$padding: 10px;
+
+// Colors
+$color-primary: #1CB3A6; // Spreadshirt green
+$color-dark: #413231;
+$color-light: #FFFFFF;
+$color-light-gray: #E9E9E9;
+$color-gray: #D7D7D7;
+$color-secondary: $color-gray;
+$color-dark-gray: #5E5E5E; 
+
+.listview {
+	overflow:scroll;
+	
+	td {
+		vertical-align: top;
+	}
+	
+	thead {
+		td:nth-of-type(1) { width: 20px; }
+		td:nth-of-type(2) { width: 75px; }
+		td:nth-of-type(3) { width: 150px; }
+
+	}
+
+
+}
+
+
+
+input[type=checkbox].tagcheckbox {
+	display: block;
+	margin-left: -999999px;
+	overflow: hidden;
+	height: 1px;
+	outline: 1px solid red;
+	width: 1px;
+	float: left;
+	clip: rect(0, 0, 0, 0);
+
+	& + .tag {
+		display: block;
+		float: left;
+		background: $color-secondary;
+		padding: 0 10px;
+		line-height: 2em;	
+		overflow: hidden;
+	}
+
+	&:checked + .tag {
+		background: $color-primary;
+		color: $color-light;
+	}
+}
+
+.box {
+	display: block;
+	background: #EDEDED;
+	@extend .shadow-light;
+	@extend %transition;
+	padding: $padding;
+	overflow: hidden !important;
+	width: 100%;
+	margin: 0;
+	font-size: 1rem;
+
+	h4 {
+		font-size: 1rem;
+		height: 3rem;
+	}
+
+	&:hover {
+		@extend .shadow-dark;
+		background-color: desaturate(lighten($color-primary, 50), 25);
+	}
+
+	figcaption {
+		font-size: 60%;
+		line-height: 1.3em;
+		margin: 1em 0;
+	}
+}
+
+#newAssetTagContainer {
+	display: block;
+	clear: both;
+	overflow: hidden;
+	margin-bottom: $padding;
+}
+
+.assetcontainer {
+	.box {
+		height: 275px;
+		img {
+			max-width: 100%;
+			max-height: 150px;
+		}
+	}
+}
+
+#assets {
+	padding: $padding;
+}
+
+aside {
+	width: 100%;
+	display: block;
+	border: 1px dashed $color-primary;
+	padding: $padding;
+	overflow: hidden;
+	float: left;
+	height: auto;
+
+	@media screen and (min-width: $break-medium) {
+		width: 20%;
+	}
+}
+
+.content {
+	width: 100%;
+	float: right;
+
+	@media screen and (min-width: $break-medium) {
+		width: 80%;
+	}
+}
+
+.tag {
+	border-radius: 5px;
+	margin: $padding $padding $padding 0 !important;
+}
+
+input.tag {
+	height: 3.4em !important;
+	padding: 5px 0 !important;
+	margin-right: 5px;
+	font-size: 0.8125rem;
+	width: auto !important;
+	background: white !important;
+}
+
+nav {
+	background: $color-dark;
+}
+
+.nav_item {
+	display: block;
+	float: left;
+	margin: $padding;
+	padding: $padding;
+	background-color: none;
+	@include font-headline;
+	color: $color-light;
+
+	&.active {
+		background-color: $color-primary;
+		color: $color-dark;
+	}
+}
+
+.dottedline {
+	width: auto;
+	height: 95%;
+	border: 2px dashed $color-dark-gray;
+	margin: $padding;
+}
+
+#btnNewAsset {
+	text-align: center;
+	color: $color-dark-gray;
+
+	h1 {
+		
+		line-height: 7.5rem;
+		margin: 20px 0 0 ;
+		color: $color-dark-gray;
+		font-size: 7.5rem;
+	}
+}
+
+.edit_asset_button {
+	background-color: $color-gray !important;
+	width: 100%;
+	padding: 1em !important;
+	margin: 0 !important;
+
+	&:hover {
+		background-color: $color-light !important;		
+	}
+}
+
+
+// UI Helper classes
+
+.flexigrid {
+	display: block;
+	clear: both;
+	overflow: hidden;
+	width: 100% !important;
+
+	.flexigrid-item {
+		float: left;
+		padding: 0 $padding 0 0;
+		margin-bottom: $padding;
+		overflow: hidden;
+		
+		width: 50%;
+		@media screen and (min-width: $break-small) {
+			width: 33%;
+		}
+		@media screen and (min-width: $break-medium) {
+			width: 25%;
+		}
+		@media screen and (min-width: $break-large) {
+			width: 20%;
+		}
+
+		&.selected {
+			.box {
+				box-shadow: none !important;
+				background-color: desaturate(lighten($color-primary, 25), 25);
+			}
+		}
+	}
+}
+
+.shadow-light {
+	box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.25);
+}
+
+.shadow-dark {
+	box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+%transition {
+	-webkit-transition: all 0.3s 0s ease-out;  /* Saf3.2+, Chrome */
+	-moz-transition: all 0.3s 0s ease-out;  /* FF4+ */
+	-ms-transition: all 0.3s 0s ease-out;  /* IE10? */
+	-o-transition: all 0.3s 0s ease-out;  /* Opera 10.5+ */
+	transition: all 0.3s 0s ease-out; 
+}

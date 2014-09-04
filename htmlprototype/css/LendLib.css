@@ -1,0 +1,185 @@
+*, *:before, *:after {
+  box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  -webkit-box-sizing: border-box !important; }
+
+body {
+  font-family: 'Open Sans', sans-serif !important; }
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Roboto Slab', serif !important; }
+
+/* CSS declarations go here */
+.listview {
+  overflow: scroll; }
+  .listview td {
+    vertical-align: top; }
+  .listview thead td:nth-of-type(1) {
+    width: 20px; }
+  .listview thead td:nth-of-type(2) {
+    width: 75px; }
+  .listview thead td:nth-of-type(3) {
+    width: 150px; }
+
+input[type=checkbox].tagcheckbox {
+  display: block;
+  margin-left: -999999px;
+  overflow: hidden;
+  height: 1px;
+  outline: 1px solid red;
+  width: 1px;
+  float: left;
+  clip: rect(0, 0, 0, 0); }
+  input[type=checkbox].tagcheckbox + .tag {
+    display: block;
+    float: left;
+    background: #d7d7d7;
+    padding: 0 10px;
+    line-height: 2em;
+    overflow: hidden; }
+  input[type=checkbox].tagcheckbox:checked + .tag {
+    background: #1cb3a6;
+    color: white; }
+
+.box {
+  display: block;
+  background: #EDEDED;
+  padding: 10px;
+  overflow: hidden !important;
+  width: 100%;
+  margin: 0;
+  font-size: 1rem; }
+  .box h4 {
+    font-size: 1rem;
+    height: 3rem; }
+  .box:hover {
+    background-color: #dbf3f1; }
+  .box figcaption {
+    font-size: 60%;
+    line-height: 1.3em;
+    margin: 1em 0; }
+
+#newAssetTagContainer {
+  display: block;
+  clear: both;
+  overflow: hidden;
+  margin-bottom: 10px; }
+
+.assetcontainer .box {
+  height: 275px; }
+  .assetcontainer .box img {
+    max-width: 100%;
+    max-height: 150px; }
+
+#assets {
+  padding: 10px; }
+
+aside {
+  width: 100%;
+  display: block;
+  border: 1px dashed #1cb3a6;
+  padding: 10px;
+  overflow: hidden;
+  float: left;
+  height: auto; }
+  @media screen and (min-width: 800px) {
+    aside {
+      width: 20%; } }
+
+.content {
+  width: 100%;
+  float: right; }
+  @media screen and (min-width: 800px) {
+    .content {
+      width: 80%; } }
+
+.tag {
+  border-radius: 5px;
+  margin: 10px 10px 10px 0 !important; }
+
+input.tag {
+  height: 3.4em !important;
+  padding: 5px 0 !important;
+  margin-right: 5px;
+  font-size: 0.8125rem;
+  width: auto !important;
+  background: white !important; }
+
+nav {
+  background: #413231; }
+
+.nav_item {
+  display: block;
+  float: left;
+  margin: 10px;
+  padding: 10px;
+  background-color: none;
+  font-family: 'Roboto Slab', serif !important;
+  color: white; }
+  .nav_item.active {
+    background-color: #1cb3a6;
+    color: #413231; }
+
+.dottedline {
+  width: auto;
+  height: 95%;
+  border: 2px dashed #5e5e5e;
+  margin: 10px; }
+
+#btnNewAsset {
+  text-align: center;
+  color: #5e5e5e; }
+  #btnNewAsset h1 {
+    line-height: 7.5rem;
+    margin: 20px 0 0;
+    color: #5e5e5e;
+    font-size: 7.5rem; }
+
+.edit_asset_button {
+  background-color: #d7d7d7 !important;
+  width: 100%;
+  padding: 1em !important;
+  margin: 0 !important; }
+  .edit_asset_button:hover {
+    background-color: white !important; }
+
+.flexigrid {
+  display: block;
+  clear: both;
+  overflow: hidden;
+  width: 100% !important; }
+  .flexigrid .flexigrid-item {
+    float: left;
+    padding: 0 10px 0 0;
+    margin-bottom: 10px;
+    overflow: hidden;
+    width: 50%; }
+    @media screen and (min-width: 480px) {
+      .flexigrid .flexigrid-item {
+        width: 33%; } }
+    @media screen and (min-width: 800px) {
+      .flexigrid .flexigrid-item {
+        width: 25%; } }
+    @media screen and (min-width: 1280px) {
+      .flexigrid .flexigrid-item {
+        width: 20%; } }
+    .flexigrid .flexigrid-item.selected .box {
+      box-shadow: none !important;
+      background-color: #7dd1ca; }
+
+.shadow-light, .box {
+  box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.25); }
+
+.shadow-dark, .box:hover {
+  box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75); }
+
+.box {
+  -webkit-transition: all 0.3s 0s ease-out;
+  /* Saf3.2+, Chrome */
+  -moz-transition: all 0.3s 0s ease-out;
+  /* FF4+ */
+  -ms-transition: all 0.3s 0s ease-out;
+  /* IE10? */
+  -o-transition: all 0.3s 0s ease-out;
+  /* Opera 10.5+ */
+  transition: all 0.3s 0s ease-out; }
