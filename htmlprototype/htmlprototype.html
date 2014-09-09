@@ -12,11 +12,14 @@
 	{{> tags}}
 
 	<div id="assets" class="row">
-		<aside id="assets_filters">
+		
+		
 			{{> assetFilters}}		
-		</aside>
+		
+
 		<div class="content">
-			{{> assets}}	
+			{{> assets}}
+			{{> assortment}}	
 		</div>
 	</div>
 </body>
@@ -26,7 +29,7 @@
 		<div id="nav_new_tag" class="nav_item" data-variable="zeroStateAddTag">Add global tags</div>
 		<div id="nav_tags" class="nav_item" data-variable="showGLobalTags">Manage global tags</div>
 		<div id="nav_assets" class="nav_item" data-variable="showAssets">Manage Design Assets</div>
-
+		<div id="nav_assortment" class="nav_item" data-variable="showAssortment">Manage Assortment</div>
 	</nav>
 </template>
 
@@ -41,11 +44,15 @@
 </template>
 
 <template name="assetFilters">
-	<h3>Apply Filters:</h3>
-	{{> assetFiltersStatuses}}
-	<hr>
-	<h3>Filter by Tag:</h3>
-	{{> assetFiltersTags}}
+	{{#if showFilters}}
+		<aside id="assets_filters">
+			<h3>Apply Filters:</h3>
+			{{> assetFiltersStatuses}}
+			<hr>
+			<h3>Filter by Tag:</h3>
+			{{> assetFiltersTags}}
+		</aside>
+	{{/if}}
 </template>
 
 <template name="assetFiltersTags">
@@ -59,31 +66,64 @@
 
 <template name="assetFiltersStatuses">
 	<div id="assetFiltersStatuses">
+	<dl class="tabs" data-tab>
+  <dd class="active"><a href="#panel1">Tab 1</a></dd>
+  <dd><a href="#panel2">Tab 2</a></dd>
+  <dd><a href="#panel3">Tab 3</a></dd>
+  <dd><a href="#panel4">Tab 4</a></dd>
+</dl>
+<div class="tabs-content">
+  <div class="content active" id="panel1">
+    <p>This is the first panel of the basic tab example. This is the first panel of the basic tab example.</p>
+  </div>
+  <div class="content" id="panel2">
+    <p>This is the second panel of the basic tab example. This is the second panel of the basic tab example.</p>
+  </div>
+  <div class="content" id="panel3">
+    <p>This is the third panel of the basic tab example. This is the third panel of the basic tab example.</p>
+  </div>
+  <div class="content" id="panel4">
+    <p>This is the fourth panel of the basic tab example. This is the fourth panel of the basic tab example.</p>
+  </div>
+</div>
 		<!-- ADD the variables for value and ID to be able to filter by them -->
-		<h5>File Format:</h5>
-		<input type="checkbox" name="assetFiltersFileFormat" id="assetFiltersFileFormatVector" data-label="fileformat" data-value="vector" class="assetFiltersTag tagcheckbox">
-		<label for="assetFiltersFileFormatVector" class="tag">vector</label>
-		<input type="checkbox" name="assetFiltersFileFormat" id="assetFiltersFileFormatBitmap" data-label="fileformat" data-value="bitmap" class="assetFiltersTag tagcheckbox">
+		<button data-options="align:right" data-dropdown="approved_for_POS_filter" aria-controls="approved_for_POS_filter" aria-expanded="true" class="secondary dropdown-arrow-right">
+		Approved for Marketplaces</button>
+		<ul id="approved_for_POS_filter" class="f-dropdown content" data-dropdown-content aria-hidden="true" tabindex="-1">
+		<!-- <ul> -->
+		{{#each assetFilterApprovalCountries}}
+			<li>
+				<input type="checkbox" name="assetFiltersApprovalStatus" id="assetFiltersApprovalStatus_{{_id}}" data-label="approvedForPOS" data-value="{{_id}}" data-singleOrMultiValue="multi" class="assetFiltersTag tagcheckbox">
+				<label for="assetFiltersApprovalStatus_{{_id}}" class="tag">{{country}}</label>
+			</li>
+		{{/each}}
+		</ul>
+		<h5>Shops:</h5>
+		{{#each assetFilterApprovalShops}}
+			<input type="checkbox" name="assetFiltersPublishedShops" id="assetFiltersPublishedShops_{{_id}}" data-label="publishedshops" data-value="{{_id}}" data-singleOrMultiValue="multi" class="assetFiltersTag tagcheckbox">
+			<label for="assetFiltersPublishedShops_{{_id}}" class="tag">{{shop}}</label>
+		{{/each}}
+		<input type="checkbox" name="assetFiltersApprovalStatus" id="assetFiltersFileFormatBitmap" data-label="fileformat" data-value="bitmap" data-singleOrMultiValue="single" class="assetFiltersTag tagcheckbox">
 		<label for="assetFiltersFileFormatBitmap" class="tag">bitmap</label>
 
-		<hr>
+		<!-- <hr> -->
 
 		<h5>Used in product creation:</h5>
-		<input type="checkbox" name="assetFiltersUsage" id="assetFiltersUnused" data-label="usage" data-value="unused" class="assetFiltersTag tagcheckbox">
+		<input type="checkbox" name="assetFiltersUsage" id="assetFiltersUnused" data-label="usage" data-value="unused" data-singleOrMultiValue="single" class="assetFiltersTag tagcheckbox">
 		<label for="assetFiltersUnused" class="tag">unused</label>
-		<input type="checkbox" name="assetFiltersUsage" id="assetFiltersUsed" data-label="usage" data-value="used" class="assetFiltersTag tagcheckbox">
+		<input type="checkbox" name="assetFiltersUsage" id="assetFiltersUsed" data-label="usage" data-value="used" data-singleOrMultiValue="single" class="assetFiltersTag tagcheckbox">
 		<label for="assetFiltersUsed" class="tag">used</label>
 
 		<hr>
 
 		<h5>Review Status:</h5>
-		<input type="checkbox" name="assetFiltersReview" id="assetFiltersNotReviewed" data-label="review" data-value="not reviewed" class="assetFiltersTag tagcheckbox">
+		<input type="checkbox" name="assetFiltersReview" id="assetFiltersNotReviewed" data-label="review" data-value="not reviewed" data-singleOrMultiValue="single" class="assetFiltersTag tagcheckbox">
 		<label for="assetFiltersNotReviewed" class="tag">not reviewed</label>
-		<input type="checkbox" name="assetFiltersReview" id="assetFiltersInReview" data-label="review" data-value="in review" class="assetFiltersTag tagcheckbox">
+		<input type="checkbox" name="assetFiltersReview" id="assetFiltersInReview" data-label="review" data-value="in review" data-singleOrMultiValue="single" class="assetFiltersTag tagcheckbox">
 		<label for="assetFiltersInReview" class="tag">in review</label>
-		<input type="checkbox" name="assetFiltersReview" id="assetFiltersReviewedNotApproved" data-label="review" data-value="reviewed not approved" class="assetFiltersTag tagcheckbox">
+		<input type="checkbox" name="assetFiltersReview" id="assetFiltersReviewedNotApproved" data-label="review" data-value="reviewed not approved" data-singleOrMultiValue="single" class="assetFiltersTag tagcheckbox">
 		<label for="assetFiltersReviewedNotApproved" class="tag">reviewed (not approved)</label>
-		<input type="checkbox" name="assetFiltersReview" id="assetFiltersReviewedApproved" data-label="review" data-value="reviewed approved" class="assetFiltersTag tagcheckbox">
+		<input type="checkbox" name="assetFiltersReview" id="assetFiltersReviewedApproved" data-label="review" data-value="reviewed approved" data-singleOrMultiValue="single" class="assetFiltersTag tagcheckbox">
 		<label for="assetFiltersReviewedApproved" class="tag">reviewed (approved)</label>
 
 	</div>
@@ -125,6 +165,22 @@
 	{{/if}}	
 </template>
 
+<template name="assortment">
+	{{#if showAssortment}}
+		<div class="assetcontainer flexigrid">
+			{{#each products}}
+				<div class="flexigrid-item">
+					<div class="box">
+						<img src="{{resources.href}}" alt="" class="main">
+						<h6>{{name}} — {{id}}</h6>
+						<p><strong name="price">Price: ${{price.vatIncluded}}0</strong><br>Commmission: ${{commission}}</p>
+					</div>
+				</div>
+			{{/each}}
+		</div>
+	{{/if}}	
+</template>
+
 <template name="assets">
 {{#if showAssets}}
 	<div id="assets">
@@ -154,13 +210,35 @@
 				<input type="radio" name="newAssetFileFormat" id="newAssetFileFormatBitmap" value="bitmap" checked="{{newAssetBitmap}}">
 				<label for="newAssetFileFormatBitmap">Bitmap</label>
 
-				<h3>Usage</h3>
+				<!-- <h3>Usage</h3>
 				<input type="radio" name="newAssetUsage" id="newAssetUsageUnused" value="unused" checked="{{newAssetUnused}}">
 				<label for="newAssetUsageUnused">Unsed</label>
 				<input type="radio" name="newAssetUsage" id="newAssetUsageUsed" value="used" checked="{{newAssetUsed}}">
-				<label for="newAssetUsageUsed">Used</label>
+				<label for="newAssetUsageUsed">Used</label> -->
 
-				<h3>Published to Spreadshirt Clip Art Library</h3>
+				<h3>Review</h3>
+				<input type="radio" name="newAssetReview" id="newAssetReviewNotReviewed" value="not reviewed" checked="{{newAssetNotReviewed}}">
+				<label for="newAssetReviewNotReviewed">Not Reviewed</label>
+				<input type="radio" name="newAssetReview" id="newAssetReviewInReview" value="in review" checked="{{newAssetInReview}}">
+				<label for="newAssetReviewInReview">In Review</label>
+				<input type="radio" name="newAssetReview" id="newAssetReviewReviewedNotApproved" value="reviewed not approved" checked="{{newAssetReviewedNotApproved}}">
+				<label for="newAssetReviewReviewed">Reviewed (Not Approved)</label>
+				<input type="radio" name="newAssetReview" id="newAssetReviewReviewedApproved" value="reviewed approved" checked="{{newAssetReviewedApproved}}">
+				<label for="newAssetReviewReviewed">Reviewed (Approved)</label>
+
+				
+
+				{{#if newAssetIsApproved}}
+				<h3>Approved for Point of Sale:</h3>
+					<div class="clearfix">
+						{{#each POS_MP_Country}}
+							<input type="checkbox" class="newAssetApprovedForPOS tagcheckbox" id="approvedForPOS_{{country}}" value="{{_id}}" checked="{{assetFilterApprovalCountries}}">
+							<label for="approvedForPOS_{{country}}" class="tag">{{country}}</label>
+						{{/each}}
+					</div>
+				{{/if}}
+
+				<h3>Published to Spreadshirt Marketplaces</h3>
 				<input type="radio" name="newAssetPublished" id="newAssetPublishedUnpublished" value="unpublished" checked="{{newAssetUnpublished}}">
 				<label for="newAssetPublishedUnpublished">Unpublished</label>
 				<input type="radio" name="newAssetPublished" id="newAssetPublishedPublished" value="published" checked="{{newAssetPublished}}">
@@ -174,16 +252,11 @@
 					</div>
 				{{/if}}
 
-				<h3>Review</h3>
-				<input type="radio" name="newAssetReview" id="newAssetReviewNotReviewed" value="not reviewed" checked="{{newAssetNotReviewed}}">
-				<label for="newAssetReviewNotReviewed">Not Reviewed</label>
-				<input type="radio" name="newAssetReview" id="newAssetReviewInReview" value="in review" checked="{{newAssetInReview}}">
-				<label for="newAssetReviewInReview">In Review</label>
-				<input type="radio" name="newAssetReview" id="newAssetReviewReviewedNotApproved" value="reviewed not approved" checked="{{newAssetReviewedNotApproved}}">
-				<label for="newAssetReviewReviewed">Reviewed (Not Approved)</label>
-				<input type="radio" name="newAssetReview" id="newAssetReviewReviewedApproved" value="reviewed approved" checked="{{newAssetReviewedApproved}}">
-				<label for="newAssetReviewReviewed">Reviewed (Approved)</label>
-
+				<h3>Published to Shops</h3>
+				{{#each shops}}
+					<input type="checkbox" class="newAssetPublishedShop tagcheckbox" id="{{shop}}" value="{{_id}}" checked="{{newAssetPublishedShops}}">
+					<label for="{{shop}}" class="tag">{{shop}}</label>
+				{{/each}}
 
 				<hr>
 					

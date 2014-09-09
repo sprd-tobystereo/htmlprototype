@@ -7,6 +7,8 @@ assets = new Meteor.Collection("Assets"); // Designs
 // designs.insert({name: "I Heart", url: "http://image10.spreadshirt.net/image-server/v1/compositions/5617609/views/1,width=235,height=235,appearanceId=1/Weiss-I-Heart-T-Shirt.jpg", description: "Ich und mein Herz, uns trennt niemand!", tags: ["love", "Liebe", "Herz", "heart"], format: "vector"});
 tags = new Meteor.Collection("Tags");
 countries = new Meteor.Collection("Countries");
+shops = new Meteor.Collection("Shops");
+products = new Meteor.Collection("Products");
 
 
 if (Meteor.isClient) {
@@ -22,28 +24,41 @@ if (Meteor.isClient) {
   Session.set('adding_category', false);
   Session.set('editing_tag_id');
   Session.set('new_tag', false);
+  
+  // filter variables
   Session.set('tag_filters');
   Session.set('status_filters_labels', []);
   Session.set('status_filters_values', []);
+  Session.set('status_filters_singleOrMultiValue', []);
+
   // We are declaring the 'adding_category' flag
   Session.set('adding_asset', false);
   Session.set('editing_asset', '');
   Session.set('selected_assets');
   Session.set('showGLobalTags', false);
+  
   Session.set('newAssetPublishedPublished', false);
+  Session.set('newAssetIsApproved', false);
+
   Session.set('assetgridview', true);
   Session.set('zeroStateAddTag', false);
+  Session.set('showAssortment', false);
+  Session.set('showAssets', false);
+  Session.set('showFilters', false);
 
   /******************************************
 
       Template Variables Helper Functions
       
   *******************************************/
+  // Template: zeroStateAddTag
+
   Template.zeroStateAddTag.zeroStateAddTag = function (e,t) {
     return Session.get('zeroStateAddTag');
   }
 
   // Template: Tag
+
   Template.tag.edit_tag = function (e,t) {
     var is_this_editable = false;
     var local_tag_id = Session.get('editing_tag_id');
@@ -92,6 +107,10 @@ if (Meteor.isClient) {
     // document.getElementById('newAssetPublishedPublished').checked;
     return Session.get('newAssetPublishedPublished');
   };
+
+  Template.assets.newAssetIsApproved = function(e,t) {
+    return Session.get('newAssetIsApproved');
+  };  
 
   Template.assets.countries = function() {
     return countries.find({});
@@ -205,8 +224,10 @@ if (Meteor.isClient) {
   Template.assets.newAssetReviewedApproved = function () {
     var searchvalue = Session.get('editing_asset');
     if(searchvalue != '') {
-      if(assets.findOne({'_id': searchvalue}).review == 'reviewed approved')
-      return "checked";
+      if(assets.findOne({'_id': searchvalue}).review == 'reviewed approved') {
+        Session.set('newAssetIsApproved', true);
+        return "checked";
+      }
     }
   };
 
@@ -228,6 +249,40 @@ if (Meteor.isClient) {
         return "checked";
       }
     }
+  };
+
+  Template.assets.assetFilterApprovalCountries = function () {
+    var searchvalue = Session.get('editing_asset');
+    var existing_countries = assets.findOne({'_id': searchvalue}).approvedForPOS;
+    for(i=0;i<existing_countries.length;i++){
+      if(this._id == existing_countries[i]) {
+        return "checked";
+      }
+    }
+  };
+
+  Template.assets.newAssetPublishedShops = function () {
+    var searchvalue = Session.get('editing_asset');
+    var existing_shops = assets.findOne({'_id': searchvalue}).publishedshops;
+    for(i=0;i<existing_shops.length;i++){
+      if(this._id == existing_shops[i]) {
+        return "checked";
+      }
+    }
+  };
+
+  Template.assets.POS_MP_Country = function () {
+    return countries.find({}, {sort: {'country': 1}});
+  };
+
+
+
+  Template.assets.assetgridview = function () {
+    return Session.get('assetgridview');
+  };
+
+  Template.assets.shops = function() {
+    return shops.find({}, {sort: {'shop': 1}});
   };
 
   // Template: SingleTag
@@ -280,21 +335,26 @@ if (Meteor.isClient) {
   Template.asset.assetnotfilteredbystatus = function () {
     var the_labels = Session.get('status_filters_labels');
     var the_values = Session.get('status_filters_values');
-
+    var the_quantity = Session.get('status_filters_singleOrMultiValue');
 
     var match = 0;
 
     if(the_labels.length >= 0){
       for(i=0;i<the_labels.length;i++){
-        if(typeof the_labels[i] == 'undefined') {
-          the_labels.splice(i, 1); 
-          the_values.splice(i, 1); 
-          Session.set('status_filters_labels', the_labels);
-          Session.set('status_filters_values', the_values);
-        }
-        if(this[the_labels[i]] == the_values[i]) {
-          match++;
-        }
+        if(the_quantity[i] == 'single') {
+          // single value fields
+          if(this[the_labels[i]] == the_values[i]) {
+            match++;
+          } 
+        } else {
+          // multi value fields
+          var the_multivalue_field = this[the_labels[i]];
+          for(j=0;j<the_multivalue_field.length; j++) {
+            if(the_multivalue_field[j] == the_values[i]) {
+              match++;
+            } 
+          }
+        } 
       }
 
       if(match == the_labels.length) {
@@ -308,7 +368,7 @@ if (Meteor.isClient) {
     }
 
     
-  }
+  };
 
   Template.asset.id = function () {
     return this.id;
@@ -316,17 +376,53 @@ if (Meteor.isClient) {
 
   Template.asset.assetgridview = function () {
     return Session.get('assetgridview');
-  }
+  };
 
-  Template.assets.assetgridview = function () {
-    return Session.get('assetgridview');
-  }
+  // Template: AssetFilters
+
+  Template.assetFilters.showFilters = function () {
+    if(Session.get('showAssortment') == true || Session.get('showAssets') == true) {
+      Session.set('showFilters', true);
+    } else {
+      Session.set('showFilters', false);
+    }
+    return Session.get('showFilters');
+  };
 
   // Template: AssetFilterTags
 
   Template.assetFiltersTags.assetFiltersTags = function () {
     return tags.find({}, {sort: {'tag': 1}});
   };
+
+  // Template: assetFiltersStatuses
+
+  Template.assetFiltersStatuses.assetFilterApprovalCountries = function () {
+    return countries.find({}, {sort: {'country': 1}});
+  };
+
+  Template.assetFiltersStatuses.assetFilterApprovalShops = function () {
+    return shops.find({}, {sort: {'shop': 1}});
+  };
+
+
+  // Template: Assortment
+  Template.assortment.showAssortment = function () {
+    return Session.get('showAssortment');
+  };
+
+  Template.assortment.products = function () {
+    return products.find({}, {sort: {'name': 1}});
+  };
+
+  Template.assortment.commission = function () {
+    var the_price = this.price.vatExcluded;
+    the_price *= 0.12;
+    the_price = the_price.toFixed(2);
+    return the_price;
+  };
+
+
 
 
 
@@ -456,24 +552,31 @@ if (Meteor.isClient) {
       
       var t = Session.get('status_filters_labels');
       var u = Session.get('status_filters_values');
+      var v = Session.get('status_filters_singleOrMultiValue');
       t = _.extend([], t);
       u = _.extend([], u);
+      v = _.extend([], v);
       
       if(thisFilterIsChecked) {
         var the_label = e.currentTarget.getAttribute('data-label');
         var the_value = e.currentTarget.getAttribute('data-value');
+        var the_quantity = e.currentTarget.getAttribute('data-singleOrMultiValue');
         t.push(the_label);
         u.push(the_value);
+        v.push(the_quantity);
       } else {
         var t_index = t.indexOf(the_label);
         t.splice(t_index, 1); 
-        u.splice(t_index, 1);   
+        u.splice(t_index, 1);  
+        v.splice(t_index, 1);   
       }
       Session.set('status_filters_labels', t);
       Session.set('status_filters_values', u);
+      Session.set('status_filters_singleOrMultiValue', v);
       
       console.log(Session.get('status_filters_labels'));
       console.log(Session.get('status_filters_values'));
+      console.log(Session.get('status_filters_singleOrMultiValue'));
     }
   });
 
@@ -511,6 +614,24 @@ if (Meteor.isClient) {
         }
       };
 
+      var newAssetPublishedShops = [];
+      var allShops = document.getElementsByClassName('newAssetPublishedShop');
+      for (var i = allShops.length - 1; i >= 0; i--) {
+        if(allShops[i].checked) {
+          var the_shop = allShops[i].getAttribute('value');
+          newAssetPublishedShops.push(the_shop);
+        }
+      };
+
+      var newAssetPOS_MP_Countries = [];
+      var allApprovedCountries = document.getElementsByClassName('newAssetApprovedForPOS');
+      for (var i = allApprovedCountries.length - 1; i >= 0; i--) {
+        if(allApprovedCountries[i].checked) {
+          var the_approved_country = allApprovedCountries[i].getAttribute('value');
+          newAssetPOS_MP_Countries.push(the_approved_country);
+        }
+      };
+
       var newAssetFileFormat = $('input[name="newAssetFileFormat"]:checked').val();
       var newAssetUsage = $('input[name="newAssetUsage"]:checked').val();
       var newAssetPublished = $('input[name="newAssetPublished"]:checked').val();
@@ -526,7 +647,9 @@ if (Meteor.isClient) {
           usage: newAssetUsage,
           published: newAssetPublished,
           publishedcountries: newAssetPublishedCountries,
-          review: newAssetReview
+          publishedshops: newAssetPublishedShops,
+          review: newAssetReview,
+          approvedForPOS: newAssetPOS_MP_Countries
         }});
         
       } else {
@@ -539,7 +662,9 @@ if (Meteor.isClient) {
           usage: newAssetUsage,
           published: newAssetPublished,
           publishedcountries: newAssetPublishedCountries,
-          review: newAssetReview
+          publishedshops: newAssetPublishedShops,
+          review: newAssetReview,
+          approvedForPOS: newAssetPOS_MP_Countries
         });
       }
 
@@ -556,6 +681,15 @@ if (Meteor.isClient) {
     'click #newAssetPublishedUnpublished': function(e,t) {
       console.log("unpublished");
       Session.set('newAssetPublishedPublished', false);
+    },
+    'click [name=newAssetReview]': function(e,t) {
+      if(e.currentTarget.id == 'newAssetReviewReviewedApproved') {
+        console.log("approved");
+        Session.set('newAssetIsApproved', true);  
+      } else {
+        Session.set('newAssetIsApproved', false);  
+      }
+      
     },
     'click #assetgridview': function(e,t) {
       Session.set('assetgridview', true);
@@ -591,7 +725,7 @@ if (Meteor.isClient) {
 
   function cancelTagEditingMode() {
     Session.set('editing_tag_id', '');
-  }
+  };
   
   function removeActiveClassFromNavItems() {
     // resets classes on nav items to the default "nav_item" and thus removes all "active" classes
@@ -599,7 +733,7 @@ if (Meteor.isClient) {
     for(i=0;i<nav_items.length; i++) {
       nav_items[i].className = "nav_item";
     }
-  } 
+  };
   
   //this function puts our cursor where it needs to be.
   function focusText(i) {

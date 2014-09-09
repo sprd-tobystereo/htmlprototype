@@ -90,7 +90,6 @@ aside {
   display: block;
   border: 1px dashed #1cb3a6;
   padding: 10px;
-  overflow: hidden;
   float: left;
   height: auto; }
   @media screen and (min-width: 800px) {
@@ -184,3 +183,21 @@ nav {
 .box {
   -webkit-transition: all 0.3s 0s ease-out;
           transition: all 0.3s 0s ease-out; }
+
+.dropdown-arrow-right:before {
+  display: block;
+  width: 1em;
+  content: "\232A";
+  float: right;
+  margin-right: -30px;
+  margin-top: -5px;
+  text-align: center; }
+
+#assetFiltersStatuses .f-dropdown {
+  width: 500px;
+  max-width: 100%;
+  height: 500px;
+  max-height: 100%;
+  overflow: scroll; }
+  #assetFiltersStatuses .f-dropdown li {
+    clear: both; }

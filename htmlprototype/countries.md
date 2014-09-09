@@ -22,4 +22,4 @@ countries.insert({country: "United States",language:"English"});
 countries.insert({country: "Canada (English)",language:"English"});
 countries.insert({country: "Canada (French)",language:"French"});
 countries.insert({country: "Brazil",language:"Portugese"});
-countries.insert({country: "Australia"language:"English"});
+countries.insert({country: "Australia", language:"English"});

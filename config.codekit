@@ -77,17 +77,6 @@
 		"shouldRunBless": 1,
 		"useLibsass": 0
 		},
-	"\/htmlprototype\/min\/htmlprototype-min.js": {
-		"fileType": 64,
-		"ignore": 1,
-		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/htmlprototype\/min\/htmlprototype-min.js",
-		"outputAbbreviatedPath": "\/htmlprototype\/min\/min\/htmlprototype-min-min.js",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"outputStyle": 0,
-		"syntaxCheckerStyle": 0
-		},
 	"\/htmlprototype\/public\/img\/grid.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -120,6 +109,18 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
+		},
+	"\/htmlprototype\/shops.md": {
+		"enableFootnoteSupport": 0,
+		"enableSmartyPants": 1,
+		"expandTabs": 1,
+		"fileType": 4096,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/htmlprototype\/shops.md",
+		"outputAbbreviatedPath": "\/htmlprototype\/shops.html",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0
 		}
 	},
 "hooks": [
@@ -691,7 +692,7 @@
 	"lessStrictImports": 0,
 	"lessStrictMath": 0,
 	"lessStrictUnits": 0,
-	"markdownAutoOutputPathEnabled": 1,
+	"markdownAutoOutputPathEnabled": 0,
 	"markdownAutoOutputPathFilenamePattern": "*.html",
 	"markdownAutoOutputPathRelativePath": "",
 	"markdownAutoOutputPathReplace1": "",
