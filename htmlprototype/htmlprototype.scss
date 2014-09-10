@@ -348,3 +348,48 @@ nav {
 		margin: $padding 0;
 	}
 }
+
+.productfilterstab {
+	dd {
+		width: 20%;
+		text-align: center;
+		outline: 1px solid $color-gray;
+
+		&.active a {
+			background: $color-primary !important;
+		}
+	}
+	a {
+		font-size: 90% !important;
+	}
+	img {
+		max-height: 50px;
+	}
+}
+
+.productfilterstabcontent {
+	outline: 1px solid $color-gray;
+	padding: $padding;
+
+	.product_tag {
+		height: 145px;
+		width: 100px;
+
+		img {
+			margin-top: 5px;
+			max-height: 100px;
+		}
+	}
+
+	span {
+		text-align: center;
+		display: block;
+		font-size: 0.7rem;
+		line-height: 0.8rem;
+	}
+}
+
+
+
+
+

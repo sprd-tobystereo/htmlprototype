@@ -71,6 +71,28 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/htmlprototype\/public\/img\/accessories.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1365,
+		"inputAbbreviatedPath": "\/htmlprototype\/public\/img\/accessories.png",
+		"outputAbbreviatedPath": "\/htmlprototype\/public\/img\/accessories.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/htmlprototype\/public\/img\/cases.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 821,
+		"inputAbbreviatedPath": "\/htmlprototype\/public\/img\/cases.png",
+		"outputAbbreviatedPath": "\/htmlprototype\/public\/img\/cases.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/htmlprototype\/public\/img\/grid.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -78,6 +100,17 @@
 		"initialSize": 375,
 		"inputAbbreviatedPath": "\/htmlprototype\/public\/img\/grid.png",
 		"outputAbbreviatedPath": "\/htmlprototype\/public\/img\/grid.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
+	"\/htmlprototype\/public\/img\/kids.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 2395,
+		"inputAbbreviatedPath": "\/htmlprototype\/public\/img\/kids.png",
+		"outputAbbreviatedPath": "\/htmlprototype\/public\/img\/kids.png",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -93,6 +126,17 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
+	"\/htmlprototype\/public\/img\/men.png": {
+		"fileType": 32768,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"initialSize": 1851,
+		"inputAbbreviatedPath": "\/htmlprototype\/public\/img\/men.png",
+		"outputAbbreviatedPath": "\/htmlprototype\/public\/img\/men.png",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"processed": 0
+		},
 	"\/htmlprototype\/public\/img\/table.png": {
 		"fileType": 32768,
 		"ignore": 0,
@@ -104,14 +148,16 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/htmlprototype\/shops.html": {
-		"fileType": 8192,
-		"ignore": 1,
+	"\/htmlprototype\/public\/img\/women.png": {
+		"fileType": 32768,
+		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/htmlprototype\/shops.html",
-		"outputAbbreviatedPath": "No Output Path",
+		"initialSize": 1787,
+		"inputAbbreviatedPath": "\/htmlprototype\/public\/img\/women.png",
+		"outputAbbreviatedPath": "\/htmlprototype\/public\/img\/women.png",
 		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0
+		"outputPathIsSetByUser": 0,
+		"processed": 0
 		},
 	"\/htmlprototype\/shops.md": {
 		"enableFootnoteSupport": 0,

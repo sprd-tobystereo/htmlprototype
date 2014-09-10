@@ -228,3 +228,29 @@ nav {
     width: 75px;
     max-height: 75px;
     margin: 10px 0; }
+
+.productfilterstab dd {
+  width: 20%;
+  text-align: center;
+  outline: 1px solid #d7d7d7; }
+  .productfilterstab dd.active a {
+    background: #1cb3a6 !important; }
+.productfilterstab a {
+  font-size: 90% !important; }
+.productfilterstab img {
+  max-height: 50px; }
+
+.productfilterstabcontent {
+  outline: 1px solid #d7d7d7;
+  padding: 10px; }
+  .productfilterstabcontent .product_tag {
+    height: 145px;
+    width: 100px; }
+    .productfilterstabcontent .product_tag img {
+      margin-top: 5px;
+      max-height: 100px; }
+  .productfilterstabcontent span {
+    text-align: center;
+    display: block;
+    font-size: 0.7rem;
+    line-height: 0.8rem; }

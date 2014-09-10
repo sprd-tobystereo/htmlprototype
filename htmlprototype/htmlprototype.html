@@ -15,6 +15,7 @@
 
 	<div id="assets" class="row">
 			{{> designFilters}}
+			{{> productFilters}}
 
 			{{> assetFilters}}		
 		
@@ -39,6 +40,106 @@
 		<div id="nav_assets" class="nav_item" data-variable="showAssets">Manage Products</div>
 		<div id="nav_assortment" class="nav_item" data-variable="showAssortment">Assortment</div>
 	</nav>
+</template>
+
+<template name="productFilters">
+	<a href="#" data-reveal-id="productFiltersList" class="button">Filter by Product Type</a>
+
+	<div id="productFiltersList" class="reveal-modal" data-reveal>
+		{{> productFiltersListed}}
+	  <a class="close-reveal-modal">&#215;</a>
+	</div>
+</template>
+
+<template name="productFiltersListed">
+	<h4>Filter Products by Type</h4>
+	<p>Select one or more products, or select entire categories to find products that have those applied to them.</p>
+	<dl class="tabs productfilterstab" data-tab>
+		<dd class="active">
+	  		<a href="#productfilterstab_men">
+	  			<img src="img/men.png" alt=""><br>
+	  			Men
+			</a>
+		</dd>
+		<dd>
+			<a href="#productfilterstab_women">
+	  			<img src="img/women.png" alt=""><br>
+	  			Women
+  			</a>
+		</dd>
+		<dd>
+			<a href="#productfilterstab_kids">
+	  			<img src="img/kids.png" alt=""><br>
+	  			Children &amp; Babies
+  			</a>
+		</dd>
+		<dd>
+			<a href="#productfilterstab_accessories">
+	  			<img src="img/accessories.png" alt=""><br>
+	  			Accessories
+  			</a>	
+		</dd>
+		<dd>
+			<a href="#productfilterstab_cases">
+	  			<img src="img/cases.png" alt=""><br>
+	  			Cases
+  			</a>
+		</dd>
+	</dl>
+<div class="tabs-content productfilterstabcontent">
+  <div class="content active" id="productfilterstab_men">
+    {{#each mens}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter tagcheckbox" value="{{_id}}">
+		<label for="productfilter_{{_id}}" class="tag product_tag">
+			<img src="{{resources.href}}" alt=""><br>
+			<span>{{this.name}}</span>
+		</label>
+    {{/each}}
+  </div>
+  <div class="content" id="productfilterstab_women">
+    {{#each womens}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter tagcheckbox" value="{{_id}}">
+		<label for="productfilter_{{_id}}" class="tag product_tag">
+			<img src="{{resources.href}}" alt=""><br>
+			<span>{{this.name}}</span>
+		</label>
+    {{/each}}
+  </div>
+  <div class="content" id="productfilterstab_kids">
+    {{#each kids}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter tagcheckbox" value="{{_id}}">
+		<label for="productfilter_{{_id}}" class="tag product_tag">
+			<img src="{{resources.href}}" alt=""><br>
+			<span>{{this.name}}</span>
+		</label>
+    {{/each}}
+  </div>
+  <div class="content" id="productfilterstab_accessories">
+    {{#each accessories}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter tagcheckbox" value="{{_id}}">
+		<label for="productfilter_{{_id}}" class="tag product_tag">
+			<img src="{{resources.href}}" alt=""><br>
+			<span>{{this.name}}</span>
+		</label>
+    {{/each}}
+  </div>
+  <div class="content" id="productfilterstab_cases">
+    {{#each cases}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter tagcheckbox" value="{{_id}}">
+		<label for="productfilter_{{_id}}" class="tag product_tag">
+			<img src="{{resources.href}}" alt=""><br>
+			<span>{{this.name}}</span>
+		</label>
+    {{/each}}
+  </div>
+</div>
+	{{#each designs}}
+
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter tagcheckbox" value="{{_id}}">
+		<label for="productfilter_{{_id}}" class="tag design_tag">
+			<img src="{{url}}" alt="">
+		</label>
+	{{/each}}
 </template>
 
 <template name="designFilters">
@@ -98,14 +199,8 @@
 		<!-- ADD the variables for value and ID to be able to filter by them -->
 		<button data-options="align:right" data-dropdown="approved_for_POS_filter" aria-controls="approved_for_POS_filter" aria-expanded="true" class="secondary dropdown-arrow-right">
 		Approved for Marketplaces</button>
-		<ul id="approved_for_POS_filter" class="f-dropdown content" data-dropdown-content aria-hidden="true" tabindex="-1">
-		{{#each assetFilterApprovalCountries}}
-			<li>
-				<input type="checkbox" name="assetFiltersApprovalStatus" id="assetFiltersApprovalStatus_{{_id}}" data-label="approvedForPOS" data-value="{{_id}}" data-singleOrMultiValue="multi" class="assetFiltersTag tagcheckbox">
-				<label for="assetFiltersApprovalStatus_{{_id}}" class="tag">{{country}}</label>
-			</li>
-		{{/each}}
-		</ul>
+		{{> approved_for_POS_filter}}
+		
 		<h5>Shops:</h5>
 		{{#each assetFilterApprovalShops}}
 			<input type="checkbox" name="assetFiltersPublishedShops" id="assetFiltersPublishedShops_{{_id}}" data-label="publishedshops" data-value="{{_id}}" data-singleOrMultiValue="multi" class="assetFiltersTag tagcheckbox">
@@ -135,6 +230,17 @@
 		<label for="assetFiltersReviewedApproved" class="tag">reviewed (approved)</label>
 
 	</div>
+</template>
+
+<template name="approved_for_POS_filter">
+	<ul id="approved_for_POS_filter" class="f-dropdown content" data-dropdown-content aria-hidden="true" tabindex="-1">
+	{{#each assetFilterApprovalCountries}}
+		<li>
+			<input type="checkbox" name="assetFiltersApprovalStatus" id="assetFiltersApprovalStatus_{{_id}}" data-label="approvedForPOS" data-value="{{_id}}" data-singleOrMultiValue="multi" class="assetFiltersTag tagcheckbox">
+			<label for="assetFiltersApprovalStatus_{{_id}}" class="tag">{{country}}</label>
+		</li>
+	{{/each}}
+	</ul>
 </template>
 
 <template name="designs">

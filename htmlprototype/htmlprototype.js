@@ -482,10 +482,32 @@ if (Meteor.isClient) {
     return Session.get('showFilters');
   };
 
-  // Template: designFilters
+  // Template: designFiltersListed
 
   Template.designFiltersListed.designs = function () {
     return designs.find({}, {sort: {'name': 1}});
+  };
+
+  // Template: productFiltersListed
+
+  Template.productFiltersListed.mens = function () {
+    return products.find({category: 'Men'}, {sort: {'name': 1}});
+  };
+
+  Template.productFiltersListed.womens = function () {
+    return products.find({category: 'Women'}, {sort: {'name': 1}});
+  };
+
+  Template.productFiltersListed.kids = function () {
+    return products.find({category: 'Kids & Babies'}, {sort: {'name': 1}});
+  };
+
+  Template.productFiltersListed.accessories = function () {
+    return products.find({category: 'Accessories'}, {sort: {'name': 1}});
+  };
+
+  Template.productFiltersListed.cases = function () {
+    return products.find({category: 'Cases'}, {sort: {'name': 1}});
   };
 
   // Template: AssetFilterTags
@@ -494,11 +516,13 @@ if (Meteor.isClient) {
     return tags.find({}, {sort: {'tag': 1}});
   };
 
-  // Template: assetFiltersStatuses
+  // Template: assetFilterApprovalCountries
 
-  Template.assetFiltersStatuses.assetFilterApprovalCountries = function () {
+  Template.approved_for_POS_filter.assetFilterApprovalCountries = function () {
     return countries.find({}, {sort: {'country': 1}});
   };
+
+  // Template: assetFiltersStatuses
 
   Template.assetFiltersStatuses.assetFilterApprovalShops = function () {
     return shops.find({}, {sort: {'shop': 1}});
