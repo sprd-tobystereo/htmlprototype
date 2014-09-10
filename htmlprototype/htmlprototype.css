@@ -76,11 +76,15 @@ input[type=radio].tagcheckbox, input[type=checkbox].tagcheckbox {
   margin-bottom: 10px; }
 
 .assetcontainer .box {
-  height: 275px; }
+  height: 300px; }
   .assetcontainer .box img {
     width: 100%;
     max-width: 100%;
-    max-height: 150px; }
+    max-height: 125px; }
+
+.edit_asset_img {
+  max-height: 300px;
+  margin-bottom: 2em; }
 
 #assets {
   padding: 10px; }
@@ -156,9 +160,25 @@ nav {
     margin-bottom: 10px;
     width: 50%; }
     .flexigrid .flexigrid-item figure {
-      height: 150px;
+      display: block;
+      height: 175px !important;
       padding: 0;
-      margin: 0; }
+      margin: 0;
+      clear: both; }
+      .flexigrid .flexigrid-item figure img {
+        background-color: #d7d7d7;
+        float: left;
+        width: 15%;
+        margin-top: -10px;
+        outline: 1px solid #413231;
+        margin-right: 10px; }
+      .flexigrid .flexigrid-item figure img:first-of-type {
+        display: block;
+        position: relative;
+        background: none !important;
+        width: 40%;
+        margin: 30% 30% 20%;
+        outline: none; }
     @media screen and (min-width: 480px) {
       .flexigrid .flexigrid-item {
         width: 33%; } }
@@ -201,3 +221,10 @@ nav {
   overflow: scroll; }
   #assetFiltersStatuses .f-dropdown li {
     clear: both; }
+
+.design_tag {
+  height: 100px; }
+  .design_tag img {
+    width: 75px;
+    max-height: 75px;
+    margin: 10px 0; }

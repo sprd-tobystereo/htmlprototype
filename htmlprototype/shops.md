@@ -1,2 +1,2 @@
-shops.insert({shop: "Shop 1"});
-shops.insert({shop: "Shop 2"});
+shops.insert({shop: "English Memes"});
+shops.insert({shop: "Hipsterama"});

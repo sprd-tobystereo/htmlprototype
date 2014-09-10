@@ -11,9 +11,11 @@
 	
 	{{> tags}}
 
+	{{> designs}}
+
 	<div id="assets" class="row">
-		
-		
+			{{> designFilters}}
+
 			{{> assetFilters}}		
 		
 
@@ -22,15 +24,41 @@
 			{{> assortment}}	
 		</div>
 	</div>
+
 </body>
+
+<template name="delete_products">
+	<button id="delete_products" class="alert">delete products</button>
+</template>
 
 <template name="nav">
 	<nav class="row">
-		<div id="nav_new_tag" class="nav_item" data-variable="zeroStateAddTag">Add global tags</div>
-		<div id="nav_tags" class="nav_item" data-variable="showGLobalTags">Manage global tags</div>
-		<div id="nav_assets" class="nav_item" data-variable="showAssets">Manage Design Assets</div>
-		<div id="nav_assortment" class="nav_item" data-variable="showAssortment">Manage Assortment</div>
+		<!-- <div id="nav_new_tag" class="nav_item" data-variable="zeroStateAddTag">Manage global tags</div> -->
+		<div id="nav_designs" class="nav_item" data-variable="showDesigns">Manage Designs</div>
+		<div id="nav_tags" class="nav_item" data-variable="showGLobalTags">Prototype Settings</div>
+		<div id="nav_assets" class="nav_item" data-variable="showAssets">Manage Products</div>
+		<div id="nav_assortment" class="nav_item" data-variable="showAssortment">Assortment</div>
 	</nav>
+</template>
+
+<template name="designFilters">
+	<a href="#" data-reveal-id="designFilterList" class="button">Filter by Design</a>
+
+	<div id="designFilterList" class="reveal-modal" data-reveal>
+		{{> designFiltersListed}}
+	  <a class="close-reveal-modal">&#215;</a>
+	</div>
+</template>
+
+<template name="designFiltersListed">
+	<h4>Filter Products by designs</h4>
+	<p>Select one or more designs to find products that have those applied to them.</p>
+	{{#each designs}}
+		<input type="checkbox" name="designfilter_{{_id}}" id="designfilter_{{_id}}" class="designfilter tagcheckbox" value="{{_id}}">
+		<label for="designfilter_{{_id}}" class="tag design_tag">
+			<img src="{{url}}" alt="">
+		</label>
+	{{/each}}
 </template>
 
 <template name="zeroStateAddTag">
@@ -53,6 +81,7 @@
 			{{> assetFiltersTags}}
 		</aside>
 	{{/if}}
+
 </template>
 
 <template name="assetFiltersTags">
@@ -66,31 +95,10 @@
 
 <template name="assetFiltersStatuses">
 	<div id="assetFiltersStatuses">
-	<dl class="tabs" data-tab>
-  <dd class="active"><a href="#panel1">Tab 1</a></dd>
-  <dd><a href="#panel2">Tab 2</a></dd>
-  <dd><a href="#panel3">Tab 3</a></dd>
-  <dd><a href="#panel4">Tab 4</a></dd>
-</dl>
-<div class="tabs-content">
-  <div class="content active" id="panel1">
-    <p>This is the first panel of the basic tab example. This is the first panel of the basic tab example.</p>
-  </div>
-  <div class="content" id="panel2">
-    <p>This is the second panel of the basic tab example. This is the second panel of the basic tab example.</p>
-  </div>
-  <div class="content" id="panel3">
-    <p>This is the third panel of the basic tab example. This is the third panel of the basic tab example.</p>
-  </div>
-  <div class="content" id="panel4">
-    <p>This is the fourth panel of the basic tab example. This is the fourth panel of the basic tab example.</p>
-  </div>
-</div>
 		<!-- ADD the variables for value and ID to be able to filter by them -->
 		<button data-options="align:right" data-dropdown="approved_for_POS_filter" aria-controls="approved_for_POS_filter" aria-expanded="true" class="secondary dropdown-arrow-right">
 		Approved for Marketplaces</button>
 		<ul id="approved_for_POS_filter" class="f-dropdown content" data-dropdown-content aria-hidden="true" tabindex="-1">
-		<!-- <ul> -->
 		{{#each assetFilterApprovalCountries}}
 			<li>
 				<input type="checkbox" name="assetFiltersApprovalStatus" id="assetFiltersApprovalStatus_{{_id}}" data-label="approvedForPOS" data-value="{{_id}}" data-singleOrMultiValue="multi" class="assetFiltersTag tagcheckbox">
@@ -106,7 +114,7 @@
 		<input type="checkbox" name="assetFiltersApprovalStatus" id="assetFiltersFileFormatBitmap" data-label="fileformat" data-value="bitmap" data-singleOrMultiValue="single" class="assetFiltersTag tagcheckbox">
 		<label for="assetFiltersFileFormatBitmap" class="tag">bitmap</label>
 
-		<!-- <hr> -->
+		<hr>
 
 		<h5>Used in product creation:</h5>
 		<input type="checkbox" name="assetFiltersUsage" id="assetFiltersUnused" data-label="usage" data-value="unused" data-singleOrMultiValue="single" class="assetFiltersTag tagcheckbox">
@@ -129,6 +137,36 @@
 	</div>
 </template>
 
+<template name="designs">
+	{{#if showDesigns}}	
+		<div id="tags" class="row">
+			<div class="small-12 columns">
+				<h2 class="title">My Designs</h2>	
+				<input type="hidden" id="design_id">
+				<label for="design_name">Name</label><input type="text" id="design_name">
+				<label for="design_url">URL</label><input type="text" id="design_url">
+				{{#if editing_design}}
+					<button id="design_save" class="tiny button primary">save design</button>
+					<button id="design_delete" class="tiny button primary alert">delete design</button>
+				{{else}}
+					<button id="design_save" class="tiny button primary">add design</button>
+				{{/if}}
+				<hr>
+				{{#each designs}}
+					<div class="flexigrid-item the_design small-6 medium-4 large-3 columns" id="{{_id}}">
+						<div class="box">
+							<figure>
+								<img src="{{url}}" alt="{{description}}">
+							</figure>
+								<h4><strong>{{name}}</strong></h4>
+						</div>
+					</div>
+				{{/each}}
+			</div>
+		</div>
+	{{/if}}	
+</template>
+
 <template name="tags">
 	{{#if showGLobalTags}}	
 		<div id="tags" class="row">
@@ -142,11 +180,13 @@
 					{{else}}
 						<button class="category button primary small" id="tag_add_new">&plus; add new tag</button>
 					{{/if}}
+
+					{{#each tags}}
+						{{> tag}}
+					{{/each}}
 				</div>	
 			</div>
-			{{#each tags}}
-				{{>tag}}
-			{{/each}}
+				{{> delete_products}}
 		</div>
 	{{/if}}
 
@@ -169,11 +209,38 @@
 	{{#if showAssortment}}
 		<div class="assetcontainer flexigrid">
 			{{#each products}}
-				<div class="flexigrid-item">
+				<div class="flexigrid-item product">
 					<div class="box">
-						<img src="{{resources.href}}" alt="" class="main">
-						<h6>{{name}} — {{id}}</h6>
-						<p><strong name="price">Price: ${{price.vatIncluded}}0</strong><br>Commmission: ${{commission}}</p>
+						{{#if editing_product}}
+							<input type="hidden" id="product_id" value="{{_id}}">
+							<input type="text" id="product_url" value="{{resources.href}}">
+							<input type="text" id="product_name" value="{{name}}">
+							<input type="text" id="product_price" value="{{price.vatIncluded}}">
+							<select name="product_category" id="product_category" value="{{category}}">
+								<option value="Men">
+									Men
+								</option>
+								<option value="Women" >
+									Women
+								</option>
+								<option value="Kids &amp; Babies">
+									Kids &amp; Babies
+								</option>
+								<option value="Accessories">
+									Accessories
+								</option>
+								<option value="Cases">
+									Cases
+								</option>
+							</select>
+							<button id="cancel_product" class="tiny secondary">Cancel</button>
+							<button id="save_product" class="tiny primary">Save</button>
+						{{else}}
+							<img src="{{resources.href}}" alt="" class="main">
+							<h6>{{name}}</h6>
+							<p><strong name="price">Price: ${{price.vatIncluded}}</strong><br>Commmission: ${{commission}}<br>
+							<em>{{category}}</em></p>
+						{{/if}}
 					</div>
 				</div>
 			{{/each}}
@@ -188,12 +255,32 @@
 		{{#if new_edit_asset}}
 			<div class="assets">
 				<input type="hidden" id="newAssetId" value="{{newAssetId}}">
-				<img src="{{editAssetUrl}}" alt="">
+				<img src="{{editAssetUrl}}" alt="" class="edit_asset_img">
+				<hr>
+				
+				{{#each designs}}
+					<input type="checkbox" name="design_{{_id}}" id="design_{{_id}}" class="newAssetDesign tagcheckbox" checked="{{newAssetDesignSelection}}" value="{{_id}}">
+					<label for="design_{{_id}}" class="tag design_tag">
+						<img src="{{url}}" alt="">
+					</label>
+				{{/each}}
+
+				<input type="checkbox" class="newAssetTag tagcheckbox" id="newAsset{{tag}}" value="{{_id}}" checked="{{newAssetTagSelection}}">
+						<label for="newAsset{{tag}}" class="tag">{{tag}}</label>
+
+				<hr>
+				
 				<input type="text" id="newAssetName" placeholder="Name" value="{{editAssetName}}"><br>
 				<input type="text" id="newAssetUrl" placeholder="Url" value="{{editAssetUrl}}">
 				<br>
 				<textarea type="text" id="newAssetDescription" placeholder="Description">{{newAssetDescription}}</textarea>
 				<br>
+				<select type="text" id="newAssetProduct">
+					<option value="">{{newAssetProduct}}</option>
+					{{#each products}}
+						<option value="{{_id}}" selected="{{newAssetProduct}}">{{name}}</option>
+					{{/each}}
+				</select><br>
 				<div id="newAssetTagContainer">
 				<h3>Select Tags</h3>
 					{{#each tags}}
@@ -274,7 +361,7 @@
 						<div class="box">
 							<div class="dottedline">
 								<h1>&plus;</h1>
-								<strong>add new Asset</strong>
+								<strong>create new Product</strong>
 							</div>
 						</div>
 					</div>
@@ -284,7 +371,7 @@
 				</div>
 			{{else}}
 				<div class="assetcontainer listview">
-					<button id="btnNewAsset" class="secondary tiny">add new Asset</button><br><br>
+					<button id="btnNewAsset" class="secondary tiny">create new Product</button><br><br>
 					<table>
 						<thead>
 							<td></td>
@@ -312,41 +399,39 @@
 
 <template name="asset">
 	{{#if assetnotfiltered}}
-		{{#if assetnotfilteredbystatus}}
-			{{#if assetgridview}}
-			<div class="flexigrid-item" id="{{_id}}">
-				<div class="box">
-					<figure>
-						<img src="{{url}}" alt="{{description}}">
-					</figure>
-					<h4><strong>{{name}}</strong></h4>
-					<button class="secondary tiny edit_asset_button" data-id="{{_id}}">Edit</button>
-					<!-- <figcaption>{{description}}</figcaption>
-					<div class="tags">
-					{{#each appliedtags}}
-						{{> singletag}}
-					{{/each}}
-					</div> -->
+		{{#if assetnotfilteredbydesign}}
+			{{#if assetnotfilteredbystatus}}
+				{{#if assetgridview}}
+				<div class="flexigrid-item" id="{{_id}}">
+					<div class="box">
+						<figure style="background: url({{product_url}}) no-repeat; background-size: contain;" class="asset_view">
+							{{#each designs}}
+								<img src="{{design_url}}">
+							{{/each}}
+						</figure>
+						<h4><strong>{{name}}</strong></h4>
+						<button class="secondary tiny edit_asset_button" data-id="{{_id}}">Edit</button>
+					</div>
 				</div>
-			</div>
 
-			{{else}}
+				{{else}}
 
-			<tr>
-				<td><input type="checkbox" name="" id=""></td>
-				<td><img src="{{url}}" alt="{{description}}"></td>
-				<td><strong>{{name}}</strong></td>
-				<td>{{description}}</td>
-				<td>
-					{{#each appliedtags}}
-						{{> singletag}}
-					{{/each}}
-				</td>
-				<td>{{fileformat}}</td>
-				<td>{{usage}}</td>
-				<td>{{published}}<br>{{publishedcountries}}</td>
-				<td>{{review}}</td>
-			</tr>
+				<tr>
+					<td><input type="checkbox" name="" id=""></td>
+					<td><img src="{{url}}" alt="{{description}}"></td>
+					<td><strong>{{name}}</strong></td>
+					<td>{{description}}</td>
+					<td>
+						{{#each appliedtags}}
+							{{> singletag}}
+						{{/each}}
+					</td>
+					<td>{{fileformat}}</td>
+					<td>{{usage}}</td>
+					<td>{{published}}<br>{{publishedcountries}}</td>
+					<td>{{review}}</td>
+				</tr>
+				{{/if}}
 			{{/if}}
 		{{/if}}
 	{{/if}}
