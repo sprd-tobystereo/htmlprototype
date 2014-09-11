@@ -10,6 +10,7 @@ countries = new Meteor.Collection("Countries");
 shops = new Meteor.Collection("Shops");
 products = new Meteor.Collection("Products");
 designs = new Meteor.Collection("Designs");
+colors = new Meteor.Collection("Colors");
 
 
 if (Meteor.isClient) {
@@ -32,13 +33,20 @@ if (Meteor.isClient) {
   Session.set('tag_filters');
   Session.set('status_filters_labels', []);
   Session.set('design_filters', []);
+  Session.set('product_filters_men', []);
+  Session.set('product_filters_women', []);
+  Session.set('product_filters_kids', []);
+  Session.set('product_filters_accessories', []);
+  Session.set('product_filters_cases', []);
+
   Session.set('status_filters_values', []);
   Session.set('status_filters_singleOrMultiValue', []);
 
   // We are declaring the 'adding_category' flag
   Session.set('adding_asset', false);
   Session.set('editing_asset', '');
-  Session.set('selected_assets');
+  // Session.set('selected_assets');
+  Session.set('selected_assets', []);
   Session.set('showGLobalTags', false);
   
   Session.set('newAssetPublishedPublished', false);
@@ -53,6 +61,8 @@ if (Meteor.isClient) {
 
   Session.set('editing_design', false);
   Session.set('editing_product', '');
+
+
 
   /******************************************
 
@@ -411,6 +421,116 @@ if (Meteor.isClient) {
     // return true;  
   };
 
+  Template.asset.assetnotfilteredbyproduct_men = function () {    
+    var the_product = this.product;
+    var the_filters = Session.get('product_filters_men');
+    var match = 0;
+    if(typeof the_filters !== 'undefined' && the_filters.length > -1) {
+      for(j=0;j<the_filters.length;j++) {
+        if(the_product == the_filters[j]) {
+          match++;
+        } 
+      }
+
+      if(match == the_filters.length) {
+        return true;    
+      } else {
+        return false;  
+      }
+      
+    } else {
+      return true;
+    } 
+  };
+
+  Template.asset.assetnotfilteredbyproduct_women = function () {    
+    var the_product = this.product;
+    var the_filters = Session.get('product_filters_women');
+    var match = 0;
+    if(typeof the_filters !== 'undefined' && the_filters.length > -1) {
+      for(j=0;j<the_filters.length;j++) {
+        if(the_product == the_filters[j]) {
+          match++;
+        } 
+      }
+
+      if(match == the_filters.length) {
+        return true;    
+      } else {
+        return false;  
+      }
+      
+    } else {
+      return true;
+    } 
+  };
+
+  Template.asset.assetnotfilteredbyproduct_kids = function () {    
+    var the_product = this.product;
+    var the_filters = Session.get('product_filters_kids');
+    var match = 0;
+    if(typeof the_filters !== 'undefined' && the_filters.length > -1) {
+      for(j=0;j<the_filters.length;j++) {
+        if(the_product == the_filters[j]) {
+          match++;
+        } 
+      }
+
+      if(match == the_filters.length) {
+        return true;    
+      } else {
+        return false;  
+      }
+      
+    } else {
+      return true;
+    } 
+  };
+
+  Template.asset.assetnotfilteredbyproduct_accessories = function () {    
+    var the_product = this.product;
+    var the_filters = Session.get('product_filters_accessories');
+    var match = 0;
+    if(typeof the_filters !== 'undefined' && the_filters.length > -1) {
+      for(j=0;j<the_filters.length;j++) {
+        if(the_product == the_filters[j]) {
+          match++;
+        } 
+      }
+
+      if(match == the_filters.length) {
+        return true;    
+      } else {
+        return false;  
+      }
+      
+    } else {
+      return true;
+    } 
+  };
+
+  Template.asset.assetnotfilteredbyproduct_cases = function () {    
+    var the_product = this.product;
+    var the_filters = Session.get('product_filters_cases');
+    var match = 0;
+    if(typeof the_filters !== 'undefined' && the_filters.length > -1) {
+      for(j=0;j<the_filters.length;j++) {
+        if(the_product == the_filters[j]) {
+          match++;
+        } 
+      }
+
+      if(match == the_filters.length) {
+        return true;    
+      } else {
+        return false;  
+      }
+      
+    } else {
+      return true;
+    } 
+  };
+
   Template.asset.assetnotfilteredbystatus = function () {
     var the_labels = Session.get('status_filters_labels');
     var the_values = Session.get('status_filters_values');
@@ -445,7 +565,68 @@ if (Meteor.isClient) {
     } else {
       return true;
     }
+  };
 
+  Template.asset.assetnotfilteredbyproduct = function () {
+    var men = Session.get('product_filters_men');
+    var women = Session.get('product_filters_women');
+    var kids = Session.get('product_filters_kids');
+    var accessories = Session.get('product_filters_accessories');
+    var cases = Session.get('product_filters_cases');
+
+    var match = 0;
+
+    var total_number_of_product_filters = men.length + women.length + kids.length + accessories.length + cases.length;
+
+    if(total_number_of_product_filters > 0) {
+      if(men.length > 0) {
+        for(i=0;i<men.length;i++) {
+          if(men[i] == this.product) {
+            match++;
+          }
+        }
+      }
+
+      if(women.length > 0) {
+        for(i=0;i<women.length;i++) {
+          if(women[i] == this.product) {
+            match++;
+          }
+        }
+      }
+
+      if(kids.length > 0) {
+        for(i=0;i<kids.length;i++) {
+          if(kids[i] == this.product) {
+            match++;
+          }
+        }
+      }
+
+      if(accessories.length > 0) {
+        for(i=0;i<accessories.length;i++) {
+          if(accessories[i] == this.product) {
+            match++;
+          }
+        }
+      }
+
+      if(cases.length > 0) {
+        for(i=0;i<cases.length;i++) {
+          if(cases[i] == this.product) {
+            match++;
+          }
+        }
+      }
+
+      if(match > 0) {
+        return true;    
+      } else {
+          return false;  
+      }
+    } else {
+      return true;
+    }
     
   };
 
@@ -508,6 +689,61 @@ if (Meteor.isClient) {
 
   Template.productFiltersListed.cases = function () {
     return products.find({category: 'Cases'}, {sort: {'name': 1}});
+  };
+
+  Template.productFiltersListed.productfilter_men_all_selectionstatus = function () {
+    var appliedtags = Session.get('product_filters_men');
+    var number_of_assortment_in_category = products.find({category: 'Men'}).count();
+
+    if(appliedtags.length == number_of_assortment_in_category) {
+      return "deselect all";
+    } else {
+      return "select all";
+    }
+  };
+
+  Template.productFiltersListed.productfilter_women_all_selectionstatus = function () {
+    var appliedtags = Session.get('product_filters_women');
+    var number_of_assortment_in_category = products.find({category: 'Women'}).count();
+
+    if(appliedtags.length == number_of_assortment_in_category) {
+      return "deselect all";
+    } else {
+      return "select all";
+    }
+  };
+
+  Template.productFiltersListed.productfilter_kids_all_selectionstatus = function () {
+    var appliedtags = Session.get('product_filters_kids');
+    var number_of_assortment_in_category = products.find({category: 'Children & Babies'}).count();
+
+    if(appliedtags.length == number_of_assortment_in_category) {
+      return "deselect all";
+    } else {
+      return "select all";
+    }
+  };
+
+  Template.productFiltersListed.productfilter_accessories_all_selectionstatus = function () {
+    var appliedtags = Session.get('product_filters_accessories');
+    var number_of_assortment_in_category = products.find({category: 'Accessories'}).count();
+
+    if(appliedtags.length == number_of_assortment_in_category) {
+      return "deselect all";
+    } else {
+      return "select all";
+    }
+  };
+
+  Template.productFiltersListed.productfilter_cases_all_selectionstatus = function () {
+    var appliedtags = Session.get('product_filters_cases');
+    var number_of_assortment_in_category = products.find({category: 'Cases'}).count();
+
+    if(appliedtags.length == number_of_assortment_in_category) {
+      return "deselect all";
+    } else {
+      return "select all";
+    }
   };
 
   // Template: AssetFilterTags
@@ -583,6 +819,54 @@ if (Meteor.isClient) {
       return "selected";
     }
   };
+
+  // Template: appliedFilters
+
+  Template.appliedFilters.designfilters = function() {
+    return Session.get('design_filters');
+  };
+
+  Template.appliedFilters.url = function() {
+    var the_id = String(this);
+    var the_design = designs.findOne({_id: the_id}).url;
+    return the_design;
+  };
+
+  Template.appliedFilters.product_filters_men = function() {
+    return Session.get('product_filters_men');
+  };
+
+  Template.appliedFilters.product_filters_women = function() {
+    return Session.get('product_filters_women');
+  };
+
+  Template.appliedFilters.product_filters_kids = function() {
+    return Session.get('product_filters_kids');
+  };
+
+  Template.appliedFilters.product_filters_accessories = function() {
+    return Session.get('product_filters_accessories');
+  };
+
+  Template.appliedFilters.product_filters_cases = function() {
+    return Session.get('product_filters_cases');
+  };
+
+  Template.appliedFilters.product = function() {
+    var the_id = String(this);
+    var the_product = products.findOne({_id: the_id}).name;
+    return the_product;
+  };
+
+
+  // Template: notifications
+
+  Template.notifications.number_of_selected_assets = function() {
+    return Session.get('selected_assets').length;
+  };
+
+
+
 
 
 
@@ -777,6 +1061,149 @@ function exit_design_edit_mode() {
     },
     'click #apply_design_filters': function (e,t) {
       console.log('success');
+    }
+  });
+
+  // Template: designFilters
+
+  Template.productFiltersListed.events({
+    'click .men': function (e,t) {
+      Meteor.flush();
+      var thisProductIsChecked = e.currentTarget.checked;
+      console.log(thisProductIsChecked);
+      
+      var t = Session.get('product_filters_men');
+      t = _.extend([], t);
+      
+      if(thisProductIsChecked) {
+        console.log(this._id);
+        t.push(this._id);
+      } else {
+        var index = t.indexOf(this._id);
+        if(index > -1) {
+          t.splice(index, 1); 
+        }
+      }
+      Session.set('product_filters_men', t);
+      console.log(Session.get('product_filters_men'));
+    },
+
+    'click .women': function (e,t) {
+      Meteor.flush();
+      var thisProductIsChecked = e.currentTarget.checked;
+      console.log(thisProductIsChecked);
+      
+      var t = Session.get('product_filters_women');
+      t = _.extend([], t);
+      
+      if(thisProductIsChecked) {
+        console.log(this._id);
+        t.push(this._id);
+      } else {
+        var index = t.indexOf(this._id);
+        if(index > -1) {
+          t.splice(index, 1); 
+        }
+      }
+      Session.set('product_filters_women', t);
+      console.log(Session.get('product_filters_women'));
+    },
+
+    'click .kids': function (e,t) {
+      Meteor.flush();
+      var thisProductIsChecked = e.currentTarget.checked;
+      console.log(thisProductIsChecked);
+      
+      var t = Session.get('product_filters_kids');
+      t = _.extend([], t);
+      
+      if(thisProductIsChecked) {
+        console.log(this._id);
+        t.push(this._id);
+      } else {
+        var index = t.indexOf(this._id);
+        if(index > -1) {
+          t.splice(index, 1); 
+        }
+      }
+      Session.set('product_filters_kids', t);
+      console.log(Session.get('product_filters_kids'));
+    },
+
+    'click .accessories': function (e,t) {
+      Meteor.flush();
+      var thisProductIsChecked = e.currentTarget.checked;
+      console.log(thisProductIsChecked);
+      
+      var t = Session.get('product_filters_accessories');
+      t = _.extend([], t);
+      
+      if(thisProductIsChecked) {
+        console.log(this._id);
+        t.push(this._id);
+      } else {
+        var index = t.indexOf(this._id);
+        if(index > -1) {
+          t.splice(index, 1); 
+        }
+      }
+      Session.set('product_filters_accessories', t);
+      console.log(Session.get('product_filters_accessories'));
+    },
+
+    'click .cases': function (e,t) {
+      Meteor.flush();
+      var thisProductIsChecked = e.currentTarget.checked;
+      console.log(thisProductIsChecked);
+      
+      var t = Session.get('product_filters_cases');
+      t = _.extend([], t);
+      
+      if(thisProductIsChecked) {
+        console.log(this._id);
+        t.push(this._id);
+      } else {
+        var index = t.indexOf(this._id);
+        if(index > -1) {
+          t.splice(index, 1); 
+        }
+      }
+      Session.set('product_filters_cases', t);
+      console.log(Session.get('product_filters_cases'));
+    },
+
+    'click .productfilter_all': function (e,t) {
+      var session_variable = e.currentTarget.getAttribute('data-sessionvariable');
+      var targetclass = e.currentTarget.getAttribute('data-targetclass');
+      var is_selected = e.currentTarget.checked;
+      console.log(session_variable);
+      console.log(targetclass);
+
+      //select all
+      var appliedtags = Session.get('product_filters_cases');
+      var number_of_assortment_in_category = products.find({category: 'Cases'}).count();
+
+      var t = Session.get(session_variable);
+      t = [];
+      // if all are selected
+      if(!is_selected) {
+        // deselect all
+        console.log("deselect all");
+        $('.'+targetclass).each(function() {
+          $(this).prop('checked', false);  
+        });
+      } else {
+        console.log("select all");
+        $('.'+targetclass).each(function() {
+          $(this).prop('checked', true);
+          var this_id = $(this).attr('value');
+          t.push(this_id);
+        }); 
+      }    
+
+      Session.set(session_variable, t);  
+
+      console.log(Session.get(session_variable));
     }
   });
 
@@ -980,10 +1407,31 @@ function exit_design_edit_mode() {
 
   Template.asset.events({
     'click .flexigrid-item': function(e,t) {
-      Session.set('selected_assets', this._id);
+      // Session.set('selected_assets', this._id);
       var the_asset = e.currentTarget;
       var the_id = the_asset.id;
       $('#' + the_id).toggleClass('selected');
+
+      var is_this_selected = $(the_asset).hasClass('selected');
+      console.log(is_this_selected);
+      
+
+      var t = Session.get('selected_assets');
+      t = _.extend([], t);
+      
+      if(is_this_selected) {
+        t.push(the_id);
+      } else {
+        var index = t.indexOf(the_id);
+        if(index > -1) {
+          t.splice(index, 1); 
+        }
+      }
+      Session.set('selected_assets', t);
+
+      var number_of_selected_asstes = Session.get('selected_assets');
+      console.log(number_of_selected_asstes.length);
+      
     },
 
     'click .edit_asset_button': function(e,t) {
@@ -992,6 +1440,26 @@ function exit_design_edit_mode() {
     }
 
   });
+
+
+  // Template: appliedFilters
+
+  Template.appliedFilters.events({
+    'click .removefilter': function(e,t) {
+      var session_variable = e.currentTarget.getAttribute('data-sessionvariable');
+      var the_id = e.currentTarget.getAttribute('data-id');
+      
+      var t = Session.get(session_variable);
+      t = _.extend([], t);
+      
+      var index = t.indexOf(the_id);
+      if(index > -1) {
+        t.splice(index, 1); 
+      }
+      Session.set(session_variable, t);
+    }
+  });
+
 
    /******************************************
 
@@ -1379,6 +1847,22 @@ products.insert({"name" : "Belly band for pregnant women","manufacturingCountry"
         countries.insert({country: "Canada (French)",language:"French"});
         countries.insert({country: "Brazil",language:"Portugese"});
         countries.insert({country: "Australia", language:"English"});
+      }
+
+      var colors_count = colors.find().count();
+      if(colors_count < 1) {
+        colors.insert({name: "light", color: "#FFFFFF"});
+        colors.insert({name: "dark", color: "#404040"});
+        colors.insert({name: "gray", color: "#B2B2B2"});
+        colors.insert({name: "purple", color: "#A67FB2"});
+        colors.insert({name: "blue", color: "#5973BF"});
+        colors.insert({name: "teal", color: "#66CCCC"});
+        colors.insert({name: "yellow", color: "#FFF266"});
+        colors.insert({name: "beige", color: "#E5D9B2"});
+        colors.insert({name: "brown", color: "#66594C"});
+        colors.insert({name: "orange", color: "#FFA666"});
+        colors.insert({name: "red", color: "#D96666"});
+        colors.insert({name: "pink", color: "#FFB3BF"});
       }
 
       return Meteor.methods({

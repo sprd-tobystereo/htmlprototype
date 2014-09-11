@@ -175,7 +175,7 @@ aside {
 	float: right;
 
 	@media screen and (min-width: $break-medium) {
-		width: 80%;
+		// width: 80%;
 	}
 }
 
@@ -360,7 +360,9 @@ nav {
 		}
 	}
 	a {
-		font-size: 90% !important;
+		padding: $padding 0 !important;
+		font-size: 80% !important;
+		height: 100px;
 	}
 	img {
 		max-height: 50px;
@@ -372,11 +374,22 @@ nav {
 	padding: $padding;
 
 	.product_tag {
-		height: 145px;
-		width: 100px;
+		
+		margin: 1% !important;
 
+		height: 145px;
+		width: 31%;
+
+		@media screen and (min-width: $break-small) {
+			height: 145px;
+			width: 14.6%;
+		}
+		@media screen and (min-width: $break-medium) {
+			height: 145px;
+			width: 14.6%;
+		}
 		img {
-			margin-top: 5px;
+			margin: 5px auto;
 			max-height: 100px;
 		}
 	}
@@ -390,6 +403,46 @@ nav {
 }
 
 
+#appliedfilters {
+	outline: 1px solid $color-gray;
+	overflow: hidden;
 
+	.filter_tag {
+		display: block;
+
+		background: $color-gray;
+		padding: $padding;
+		margin: 0 $padding $padding 0;
+		float: left;
+		border-radius: $padding;
+
+		&.filter_tag_design {
+			height: 90px;
+		}
+
+		img {
+			max-width: 60px;
+			max-height: 80px;
+		}
+
+		button {
+			font-size: 1rem;
+			line-height: .6rem;
+			border-radius: $padding*2;
+			padding: 5px;
+			background-color: $color-light;
+			color: $color-dark;
+			float: right;
+			margin: 0;
+		}
+
+		p {
+			display: block;
+			float: left;
+			margin: 0 $padding 0 0;
+			font-size: 80%;
+		}
+	}
+}
 
 

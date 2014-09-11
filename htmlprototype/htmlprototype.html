@@ -12,21 +12,76 @@
 	{{> tags}}
 
 	{{> designs}}
-
+	
 	<div id="assets" class="row">
-			{{> designFilters}}
-			{{> productFilters}}
+			
 
-			{{> assetFilters}}		
+			<!-- {{> assetFilters}}		-->
 		
 
 		<div class="content">
+			{{> designFilters}}
+			{{> productFilters}}
+			
+			{{> appliedFilters}}
 			{{> assets}}
 			{{> assortment}}	
 		</div>
 	</div>
 
 </body>
+
+<template name="notifications">
+	<p>you currently have {{number_of_selected_assets}} products selected.</p>
+</template>
+
+<template name="appliedFilters">
+	<h3>Applied Filters</h3>
+	<div id="appliedfilters">
+		{{#each designfilters}}
+			<div class="filter_tag filter_tag_design">
+				<img src="{{url}}" alt="">
+				<button class="removefilter" data-id="{{this}}" data-sessionvariable="design_filters">&#215;</button>
+			</div>
+		{{/each}}
+		
+		{{#each product_filters_men}}
+			<div class="filter_tag">
+				<button class="removefilter" data-id="{{this}}" data-sessionvariable="product_filters_men">&#215;</button>
+				<p>{{product}}</p>
+			</div>
+		{{/each}}
+
+		{{#each product_filters_women}}
+			<div class="filter_tag">
+				<button class="removefilter" data-id="{{this}}" data-sessionvariable="product_filters_women">&#215;</button>
+				<p>{{product}}</p>
+			</div>
+		{{/each}}
+
+		{{#each product_filters_kids}}
+			<div class="filter_tag">
+				<button class="removefilter" data-id="{{this}}" data-sessionvariable="product_filters_kids">&#215;</button>
+				<p>{{product}}</p>
+			</div>
+		{{/each}}
+
+		{{#each product_filters_accessories}}
+			<div class="filter_tag">
+				<button class="removefilter" data-id="{{this}}" data-sessionvariable="product_filters_accessories">&#215;</button>
+				<p>{{product}}</p>
+			</div>
+		{{/each}}
+
+		{{#each product_filters_cases}}
+			<div class="filter_tag">
+				<button class="removefilter" data-id="{{this}}" data-sessionvariable="product_filters_cases">&#215;</button>
+				<p>{{product}}</p>
+			</div>
+		{{/each}}
+
+	</div>
+</template>
 
 <template name="delete_products">
 	<button id="delete_products" class="alert">delete products</button>
@@ -53,7 +108,7 @@
 
 <template name="productFiltersListed">
 	<h4>Filter Products by Type</h4>
-	<p>Select one or more products, or select entire categories to find products that have those applied to them.</p>
+	<p>Select one or more products, or select entire categories.</p>
 	<dl class="tabs productfilterstab" data-tab>
 		<dd class="active">
 	  		<a href="#productfilterstab_men">
@@ -88,8 +143,13 @@
 	</dl>
 <div class="tabs-content productfilterstabcontent">
   <div class="content active" id="productfilterstab_men">
+  	<input type="checkbox" name="productfilter_men_all" id="productfilter_men_all" data-sessionvariable="product_filters_men" data-targetclass="men" class="productfilter_all">
+  	<label for="productfilter_men_all">
+  		{{productfilter_men_all_selectionstatus}}
+  	</label> 
+  	<hr>
     {{#each mens}}
-		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter tagcheckbox" value="{{_id}}">
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter men tagcheckbox" value="{{_id}}">
 		<label for="productfilter_{{_id}}" class="tag product_tag">
 			<img src="{{resources.href}}" alt=""><br>
 			<span>{{this.name}}</span>
@@ -97,8 +157,13 @@
     {{/each}}
   </div>
   <div class="content" id="productfilterstab_women">
+	<input type="checkbox" name="productfilter_women_all" id="productfilter_women_all" data-sessionvariable="product_filters_women" data-targetclass="women" class="productfilter_all">
+	<label for="productfilter_women_all">
+		{{productfilter_women_all_selectionstatus}}
+	</label>
+	<hr>
     {{#each womens}}
-		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter tagcheckbox" value="{{_id}}">
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter women tagcheckbox" value="{{_id}}">
 		<label for="productfilter_{{_id}}" class="tag product_tag">
 			<img src="{{resources.href}}" alt=""><br>
 			<span>{{this.name}}</span>
@@ -106,8 +171,13 @@
     {{/each}}
   </div>
   <div class="content" id="productfilterstab_kids">
+  	<input type="checkbox" name="productfilter_kids_all" id="productfilter_kids_all" data-sessionvariable="product_filters_kids" data-targetclass="kids" class="productfilter_all">
+	<label for="productfilter_kids_all">
+		{{productfilter_kids_all_selectionstatus}}
+	</label>
+	<hr>
     {{#each kids}}
-		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter tagcheckbox" value="{{_id}}">
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter kids tagcheckbox" value="{{_id}}">
 		<label for="productfilter_{{_id}}" class="tag product_tag">
 			<img src="{{resources.href}}" alt=""><br>
 			<span>{{this.name}}</span>
@@ -115,8 +185,13 @@
     {{/each}}
   </div>
   <div class="content" id="productfilterstab_accessories">
+  	<input type="checkbox" name="productfilter_accessories_all" id="productfilter_accessories_all" data-sessionvariable="product_filters_accessories" data-targetclass="accessories" class="productfilter_all">
+	<label for="productfilter_accessories_all">
+		{{productfilter_accessories_all_selectionstatus}}
+	</label>
+	<hr>
     {{#each accessories}}
-		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter tagcheckbox" value="{{_id}}">
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter accessories tagcheckbox" value="{{_id}}">
 		<label for="productfilter_{{_id}}" class="tag product_tag">
 			<img src="{{resources.href}}" alt=""><br>
 			<span>{{this.name}}</span>
@@ -124,8 +199,13 @@
     {{/each}}
   </div>
   <div class="content" id="productfilterstab_cases">
+  	<input type="checkbox" name="productfilter_cases_all" id="productfilter_cases_all" data-sessionvariable="product_filters_cases" data-targetclass="cases" class="productfilter_all">
+	<label for="productfilter_cases_all">
+		{{productfilter_cases_all_selectionstatus}}
+	</label>
+	<hr>
     {{#each cases}}
-		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter tagcheckbox" value="{{_id}}">
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter cases tagcheckbox" value="{{_id}}">
 		<label for="productfilter_{{_id}}" class="tag product_tag">
 			<img src="{{resources.href}}" alt=""><br>
 			<span>{{this.name}}</span>
@@ -357,6 +437,7 @@
 <template name="assets">
 {{#if showAssets}}
 	<div id="assets">
+	{{> notifications}}
 		<h2 class="title">My Products</h2>
 		{{#if new_edit_asset}}
 			<div class="assets">
@@ -506,6 +587,8 @@
 <template name="asset">
 	{{#if assetnotfiltered}}
 		{{#if assetnotfilteredbydesign}}
+		{{#if assetnotfilteredbyproduct}}
+		
 			{{#if assetnotfilteredbystatus}}
 				{{#if assetgridview}}
 				<div class="flexigrid-item" id="{{_id}}">
@@ -539,6 +622,19 @@
 				</tr>
 				{{/if}}
 			{{/if}}
+		{{/if}}
+
+		{{#if assetnotfilteredbyproduct_men}}
+		{{#if assetnotfilteredbyproduct_women}}
+		{{#if assetnotfilteredbyproduct_kids}}
+		{{#if assetnotfilteredbyproduct_accessories}}
+		{{#if assetnotfilteredbyproduct_cases}}
+		{{/if}}
+		{{/if}}
+		{{/if}}
+		{{/if}}
+		{{/if}}
+		
 		{{/if}}
 	{{/if}}
 </template>

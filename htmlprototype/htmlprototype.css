@@ -103,9 +103,6 @@ aside {
 .content {
   width: 100%;
   float: right; }
-  @media screen and (min-width: 800px) {
-    .content {
-      width: 80%; } }
 
 .tag {
   border-radius: 5px;
@@ -236,7 +233,9 @@ nav {
   .productfilterstab dd.active a {
     background: #1cb3a6 !important; }
 .productfilterstab a {
-  font-size: 90% !important; }
+  padding: 10px 0 !important;
+  font-size: 80% !important;
+  height: 100px; }
 .productfilterstab img {
   max-height: 50px; }
 
@@ -244,13 +243,52 @@ nav {
   outline: 1px solid #d7d7d7;
   padding: 10px; }
   .productfilterstabcontent .product_tag {
+    margin: 1% !important;
     height: 145px;
-    width: 100px; }
+    width: 31%; }
+    @media screen and (min-width: 480px) {
+      .productfilterstabcontent .product_tag {
+        height: 145px;
+        width: 14.6%; } }
+    @media screen and (min-width: 800px) {
+      .productfilterstabcontent .product_tag {
+        height: 145px;
+        width: 14.6%; } }
     .productfilterstabcontent .product_tag img {
-      margin-top: 5px;
+      margin: 5px auto;
       max-height: 100px; }
   .productfilterstabcontent span {
     text-align: center;
     display: block;
     font-size: 0.7rem;
     line-height: 0.8rem; }
+
+#appliedfilters {
+  outline: 1px solid #d7d7d7;
+  overflow: hidden; }
+  #appliedfilters .filter_tag {
+    display: block;
+    background: #d7d7d7;
+    padding: 10px;
+    margin: 0 10px 10px 0;
+    float: left;
+    border-radius: 10px; }
+    #appliedfilters .filter_tag.filter_tag_design {
+      height: 90px; }
+    #appliedfilters .filter_tag img {
+      max-width: 60px;
+      max-height: 80px; }
+    #appliedfilters .filter_tag button {
+      font-size: 1rem;
+      line-height: .6rem;
+      border-radius: 20px;
+      padding: 5px;
+      background-color: white;
+      color: #413231;
+      float: right;
+      margin: 0; }
+    #appliedfilters .filter_tag p {
+      display: block;
+      float: left;
+      margin: 0 10px 0 0;
+      font-size: 80%; }
