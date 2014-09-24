@@ -16,200 +16,406 @@
 	<div id="assets" class="row">
 			
 
-			<!-- {{> assetFilters}}		-->
+			
 		
 
 		<div class="content">
+			<h2 class="title">My Products</h2>
 			{{> designFilters}}
 			{{> productFilters}}
-			
+			<a href="#" data-reveal-id="assetFilterList" class="button small secondary"><img src="/img/filter.png" class="filter_by_products_button" alt="">Other Filters</a>
+			{{> bulkactions}}
+
 			{{> appliedFilters}}
 			{{> assets}}
 			{{> assortment}}	
+
+
+			<div id="assetFilterList" class="reveal-modal" data-reveal>
+				 {{> assetFilters}}		
+			</div>
 		</div>
 	</div>
 
 </body>
 
+<template name="bulkactions">
+	<div class="bulkactions">
+		<!-- <p>Product actions: </p> -->
+		<select name="" id="bulkaction_selection">
+			<option value="edit_metadata">Edit metadata</option>
+			<option value="edit_design">Edit in Designer</option>
+			<option value="create_similar" {{isonlyoneproductselected}}>Create similar product</option>
+			<option value="replace_design">Replace design</option>
+			<option value="add_design">Add design</option>
+			<option value="submit_review">Submit to Publishing Review</option>
+			<option value="publish">Publish Approved Products</option>
+			<option value="unpublish">Unpublish</option>
+			<option value="delete">Delete</option>
+			<option value="" class="secondary_select_option"></option>
+			<option value="" class="secondary_select_option">-----------------</option>
+			<option value="" class="secondary_select_option"></option>
+			<option value="" class="secondary_select_option">Prototype Options: </option>
+			<option value="" class="secondary_select_option"></option>
+			<option value="" class="secondary_select_option">-----------------</option>
+			<option value=""></option>
+			<option value="reject" class="secondary_select_option">Reject Product</option>
+			<option value="approve" class="secondary_select_option">Approve Product</option>
+		</select>
+		<button class="small" id="bulkaction_submit">Go</button>	
+	</div>
+	<hr>
+</template>
+
 <template name="notifications">
-	<p>you currently have {{number_of_selected_assets}} products selected.</p>
+	{{#if notification_review}}
+		<div data-alert class="alert-box success radius">
+		  {{notification_message}}
+		  <a href="#" class="close">&times;</a>
+		</div>
+	{{/if}}
+	{{#if notification_publish}}
+		<div data-alert class="alert-box success radius">
+		  {{notification_message}}
+		  <a href="#" class="close">&times;</a>
+		</div>
+	{{/if}}
+	{{#if notification_unpublish}}
+		<div data-alert class="alert-box success radius">
+		  {{notification_message}}
+		  <a href="#" class="close">&times;</a>
+		</div>
+	{{/if}}
+	{{#if notification_delete}}
+		<div data-alert class="alert-box success radius">
+		  {{notification_message}}
+		  <a href="#" class="close">&times;</a>
+		</div>
+	{{/if}}
+	{{#if assets_are_selected}}
+		<p>You currently have {{number_of_selected_assets}} products selected.</p>
+	{{/if}}
 </template>
 
 <template name="appliedFilters">
-	<h3>Applied Filters</h3>
-	<div id="appliedfilters">
-		{{#each designfilters}}
-			<div class="filter_tag filter_tag_design">
-				<img src="{{url}}" alt="">
-				<button class="removefilter" data-id="{{this}}" data-sessionvariable="design_filters">&#215;</button>
-			</div>
-		{{/each}}
-		
-		{{#each product_filters_men}}
-			<div class="filter_tag">
-				<button class="removefilter" data-id="{{this}}" data-sessionvariable="product_filters_men">&#215;</button>
-				<p>{{product}}</p>
-			</div>
-		{{/each}}
+	{{#if filters_are_applied}}
+		<h3>Applied Filters</h3>
+		<div id="appliedfilters">
+			{{#each designfilters}}
+				<div class="filter_tag filter_tag_design">
+					<img src="{{url}}" alt="">
+					<button class="removefilter" data-id="{{this}}" data-sessionvariable="design_filters">&#215;</button>
+				</div>
+			{{/each}}
 
-		{{#each product_filters_women}}
-			<div class="filter_tag">
-				<button class="removefilter" data-id="{{this}}" data-sessionvariable="product_filters_women">&#215;</button>
-				<p>{{product}}</p>
-			</div>
-		{{/each}}
-
-		{{#each product_filters_kids}}
-			<div class="filter_tag">
-				<button class="removefilter" data-id="{{this}}" data-sessionvariable="product_filters_kids">&#215;</button>
-				<p>{{product}}</p>
-			</div>
-		{{/each}}
-
-		{{#each product_filters_accessories}}
-			<div class="filter_tag">
-				<button class="removefilter" data-id="{{this}}" data-sessionvariable="product_filters_accessories">&#215;</button>
-				<p>{{product}}</p>
-			</div>
-		{{/each}}
-
-		{{#each product_filters_cases}}
-			<div class="filter_tag">
-				<button class="removefilter" data-id="{{this}}" data-sessionvariable="product_filters_cases">&#215;</button>
-				<p>{{product}}</p>
-			</div>
-		{{/each}}
-
-	</div>
+			{{#each product_filters}}
+				<div class="filter_tag">
+					<button class="removefilter" data-id="{{this}}" data-sessionvariable="product_filters">&#215;</button>
+					<p>{{product}} — {{region}}</p>
+				</div>
+			{{/each}}
+	
+		</div>
+	{{/if}}
 </template>
 
 <template name="delete_products">
-	<button id="delete_products" class="alert">delete products</button>
+	<button id="delete_products" class="alert">delete assortment</button>
+	<button id="delete_colors" class="alert">delete colors</button>
+	<button id="delete_designs" class="alert">delete designs</button>
+	<button id="delete_assets" class="alert">delete products</button>
 </template>
 
 <template name="nav">
 	<nav class="row">
+		<div class="logo"></div>
 		<!-- <div id="nav_new_tag" class="nav_item" data-variable="zeroStateAddTag">Manage global tags</div> -->
-		<div id="nav_designs" class="nav_item" data-variable="showDesigns">Manage Designs</div>
+		<!-- <div id="nav_designs" class="nav_item" data-variable="showDesigns">Manage Designs</div> -->
 		<div id="nav_tags" class="nav_item" data-variable="showGLobalTags">Prototype Settings</div>
-		<div id="nav_assets" class="nav_item" data-variable="showAssets">Manage Products</div>
-		<div id="nav_assortment" class="nav_item" data-variable="showAssortment">Assortment</div>
+		<div class="nav_item">My Designs</div>
+		<div id="nav_assets" class="nav_item active" data-variable="showAssets">Manage Products</div>
+
+		<!-- <div id="nav_assortment" class="nav_item" data-variable="showAssortment">Assortment</div> -->
 	</nav>
 </template>
 
 <template name="productFilters">
-	<a href="#" data-reveal-id="productFiltersList" class="button">Filter by Product Type</a>
+	<a href="#" data-reveal-id="productFiltersList" class="button small secondary"><img src="/img/products.png" class="filter_by_products_button" alt="">Filter by Product</a>
 
 	<div id="productFiltersList" class="reveal-modal" data-reveal>
-		{{> productFiltersListed}}
-	  <a class="close-reveal-modal">&#215;</a>
+		<dl class="tabs region_productfilterstab" data-tab>
+			<dd class="active"><a href="#productfilterstab_Global">Global</a></dd>
+			<dd><a href="#productfilterstab_NA">North America</a></dd>
+			<dd><a href="#productfilterstab_EU">Europe</a></dd>
+		</dl>
+		<div class="tabs-content region_productfilterstabcontent">
+			<h4>Filter Products by Type</h4>
+	<p>Select one or more products to narrow down the list of displayed products.</p>
+			<div class="content active" id="productfilterstab_Global">
+				{{> productFiltersListed_Global}}
+	  		</div>
+	  		<div class="content" id="productfilterstab_NA">
+				{{> productFiltersListed_NA}}
+	  		</div>
+	  		<div class="content" id="productfilterstab_EU">
+				{{> productFiltersListed_EU}}
+	  		</div>
+			<hr>
+	  		<button class="close-reveal-modal applyfilters">Apply Filters</button>
+	  		<button class="close-reveal-modal applyfilters secondary cancel">Cancel</button>
+		</div>
+	  <a class="close-reveal-modal close-x">&#215;</a>
 	</div>
 </template>
 
-<template name="productFiltersListed">
-	<h4>Filter Products by Type</h4>
-	<p>Select one or more products, or select entire categories.</p>
+<template name="productFiltersListed_Global">
+	{{#each global_products}}
+		{{#if product_in_assets}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter global tagcheckbox" value="{{_id}}">
+		<label for="productfilter_{{_id}}" class="tag product_tag">
+			<img src="{{resources.href}}" alt=""><br>
+			<span>{{this.name}}</span>
+		</label>
+		{{/if}}
+    {{/each}}
+</template>
+
+<template name="productFiltersListed_NA">
 	<dl class="tabs productfilterstab" data-tab>
 		<dd class="active">
-	  		<a href="#productfilterstab_men">
+	  		<a href="#productfilterstab_men_NA">
 	  			<img src="img/men.png" alt=""><br>
 	  			Men
 			</a>
 		</dd>
 		<dd>
-			<a href="#productfilterstab_women">
+			<a href="#productfilterstab_women_NA">
 	  			<img src="img/women.png" alt=""><br>
 	  			Women
   			</a>
 		</dd>
 		<dd>
-			<a href="#productfilterstab_kids">
+			<a href="#productfilterstab_kids_NA">
 	  			<img src="img/kids.png" alt=""><br>
 	  			Children &amp; Babies
   			</a>
 		</dd>
 		<dd>
-			<a href="#productfilterstab_accessories">
+			<a href="#productfilterstab_accessories_NA">
 	  			<img src="img/accessories.png" alt=""><br>
 	  			Accessories
   			</a>	
 		</dd>
 		<dd>
-			<a href="#productfilterstab_cases">
+			<a href="#productfilterstab_cases_NA">
 	  			<img src="img/cases.png" alt=""><br>
 	  			Cases
   			</a>
 		</dd>
 	</dl>
 <div class="tabs-content productfilterstabcontent">
-  <div class="content active" id="productfilterstab_men">
-  	<input type="checkbox" name="productfilter_men_all" id="productfilter_men_all" data-sessionvariable="product_filters_men" data-targetclass="men" class="productfilter_all">
-  	<label for="productfilter_men_all">
-  		{{productfilter_men_all_selectionstatus}}
+  <div class="content active" id="productfilterstab_men_NA">
+  	<!-- <input type="checkbox" name="NA_productfilter_men_all" id="NA_productfilter_men_all" data-sessionvariable="NA_product_filters_men" data-targetclass="NA_men" class="productfilter_all">
+  	<label for="NA_productfilter_men_all">
+  		{{NA_productfilter_men_all_selectionstatus}}
   	</label> 
-  	<hr>
-    {{#each mens}}
-		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter men tagcheckbox" value="{{_id}}">
+  	<hr> -->
+    {{#each NA_mens}}
+    	{{#if mens_product_in_assets}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter NA_men tagcheckbox" value="{{_id}}">
 		<label for="productfilter_{{_id}}" class="tag product_tag">
 			<img src="{{resources.href}}" alt=""><br>
 			<span>{{this.name}}</span>
 		</label>
+		{{/if}}
     {{/each}}
   </div>
-  <div class="content" id="productfilterstab_women">
-	<input type="checkbox" name="productfilter_women_all" id="productfilter_women_all" data-sessionvariable="product_filters_women" data-targetclass="women" class="productfilter_all">
-	<label for="productfilter_women_all">
-		{{productfilter_women_all_selectionstatus}}
+  <div class="content" id="productfilterstab_women_NA">
+	<!-- <input type="checkbox" name="NA_productfilter_women_all" id="NA_productfilter_women_all" data-sessionvariable="NA_product_filters_women" data-targetclass="NA_women" class="productfilter_all">
+	<label for="NA_productfilter_women_all">
+		{{NA_productfilter_women_all_selectionstatus}}
 	</label>
-	<hr>
-    {{#each womens}}
-		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter women tagcheckbox" value="{{_id}}">
+	<hr> -->
+    {{#each NA_womens}}
+    	{{#if womens_product_in_assets}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter NA_women tagcheckbox" value="{{_id}}">
 		<label for="productfilter_{{_id}}" class="tag product_tag">
 			<img src="{{resources.href}}" alt=""><br>
 			<span>{{this.name}}</span>
 		</label>
+		{{/if}}
     {{/each}}
   </div>
-  <div class="content" id="productfilterstab_kids">
-  	<input type="checkbox" name="productfilter_kids_all" id="productfilter_kids_all" data-sessionvariable="product_filters_kids" data-targetclass="kids" class="productfilter_all">
-	<label for="productfilter_kids_all">
-		{{productfilter_kids_all_selectionstatus}}
-	</label>
-	<hr>
-    {{#each kids}}
-		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter kids tagcheckbox" value="{{_id}}">
+  <div class="content" id="productfilterstab_kids_NA">
+  	<!-- <input type="checkbox" name="NA_productfilter_kids_all" id="NA_productfilter_kids_all" data-sessionvariable="NA_product_filters_kids" data-targetclass="NA_kids" class="productfilter_all">
+	<label for="NA_productfilter_kids_all">
+		{{NA_productfilter_kids_all_selectionstatus}}
+	</label> 
+	<hr>-->
+    {{#each NA_kids}}
+    	{{#if kids_product_in_assets}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter NA_kids tagcheckbox" value="{{_id}}">
 		<label for="productfilter_{{_id}}" class="tag product_tag">
 			<img src="{{resources.href}}" alt=""><br>
 			<span>{{this.name}}</span>
 		</label>
+		{{/if}}
     {{/each}}
   </div>
-  <div class="content" id="productfilterstab_accessories">
-  	<input type="checkbox" name="productfilter_accessories_all" id="productfilter_accessories_all" data-sessionvariable="product_filters_accessories" data-targetclass="accessories" class="productfilter_all">
-	<label for="productfilter_accessories_all">
-		{{productfilter_accessories_all_selectionstatus}}
-	</label>
-	<hr>
-    {{#each accessories}}
-		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter accessories tagcheckbox" value="{{_id}}">
+  <div class="content" id="productfilterstab_accessories_NA">
+  	<!-- <input type="checkbox" name="NA_productfilter_accessories_all" id="NA_productfilter_accessories_all" data-sessionvariable="NA_product_filters_accessories" data-targetclass="NA_accessories" class="productfilter_all">
+	<label for="NA_productfilter_accessories_all">
+		{{NA_productfilter_accessories_all_selectionstatus}}
+	</label> 
+	<hr>-->
+    {{#each NA_accessories}}
+    	{{#if accessories_product_in_assets}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter NA_accessories tagcheckbox" value="{{_id}}">
 		<label for="productfilter_{{_id}}" class="tag product_tag">
 			<img src="{{resources.href}}" alt=""><br>
 			<span>{{this.name}}</span>
 		</label>
+		{{/if}}
     {{/each}}
   </div>
-  <div class="content" id="productfilterstab_cases">
-  	<input type="checkbox" name="productfilter_cases_all" id="productfilter_cases_all" data-sessionvariable="product_filters_cases" data-targetclass="cases" class="productfilter_all">
-	<label for="productfilter_cases_all">
-		{{productfilter_cases_all_selectionstatus}}
-	</label>
-	<hr>
-    {{#each cases}}
-		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter cases tagcheckbox" value="{{_id}}">
+  <div class="content" id="productfilterstab_cases_NA">
+  	<!-- <input type="checkbox" name="NA_productfilter_cases_all" id="NA_productfilter_cases_all" data-sessionvariable="NA_product_filters_cases" data-targetclass="NA_cases" class="productfilter_all">
+	<label for="NA_productfilter_cases_all">
+		{{NA_productfilter_cases_all_selectionstatus}}
+	</label> 
+	<hr>-->
+    {{#each NA_cases}}
+    	{{#if cases_product_in_assets}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter NA_cases tagcheckbox" value="{{_id}}">
 		<label for="productfilter_{{_id}}" class="tag product_tag">
 			<img src="{{resources.href}}" alt=""><br>
 			<span>{{this.name}}</span>
 		</label>
+		{{/if}}
+    {{/each}}
+  </div>
+</div>
+	{{#each designs}}
+
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter tagcheckbox" value="{{_id}}">
+		<label for="productfilter_{{_id}}" class="tag design_tag">
+			<img src="{{url}}" alt="">
+		</label>
+	{{/each}}
+</template>
+
+<template name="productFiltersListed_EU">
+	<dl class="tabs productfilterstab" data-tab>
+		<dd class="active">
+	  		<a href="#productfilterstab_men_EU">
+	  			<img src="img/men.png" alt=""><br>
+	  			Men
+			</a>
+		</dd>
+		<dd>
+			<a href="#productfilterstab_women_EU">
+	  			<img src="img/women.png" alt=""><br>
+	  			Women
+  			</a>
+		</dd>
+		<dd>
+			<a href="#productfilterstab_kids_EU">
+	  			<img src="img/kids.png" alt=""><br>
+	  			Children &amp; Babies
+  			</a>
+		</dd>
+		<dd>
+			<a href="#productfilterstab_accessories_EU">
+	  			<img src="img/accessories.png" alt=""><br>
+	  			Accessories
+  			</a>	
+		</dd>
+		<dd>
+			<a href="#productfilterstab_cases_EU">
+	  			<img src="img/cases.png" alt=""><br>
+	  			Cases
+  			</a>
+		</dd>
+	</dl>
+<div class="tabs-content productfilterstabcontent">
+  <div class="content active" id="productfilterstab_men_EU">
+  	<!-- <input type="checkbox" name="EU_productfilter_men_all" id="EU_productfilter_men_all" data-sessionvariable="EU_product_filters_men" data-targetclass="EU_men" class="productfilter_all">
+  	<label for="NA_productfilter_men_all">
+  		{{EU_productfilter_men_all_selectionstatus}}
+  	</label> 
+  	<hr> -->
+    {{#each EU_mens}}
+    	{{#if mens_product_in_assets}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter EU_men tagcheckbox" value="{{_id}}">
+		<label for="productfilter_{{_id}}" class="tag product_tag">
+			<img src="{{resources.href}}" alt=""><br>
+			<span>{{this.name}}</span>
+		</label>
+		{{/if}}
+    {{/each}}
+  </div>
+  <div class="content" id="productfilterstab_women_EU">
+	<!-- <input type="checkbox" name="EU_productfilter_women_all" id="EU_productfilter_women_all" data-sessionvariable="EU_product_filters_women" data-targetclass="EU_women" class="productfilter_all">
+	<label for="EU_productfilter_women_all">
+		{{EU_productfilter_women_all_selectionstatus}}
+	</label> 
+	<hr>-->
+    {{#each EU_womens}}
+    	{{#if womens_product_in_assets}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter EU_women tagcheckbox" value="{{_id}}">
+		<label for="productfilter_{{_id}}" class="tag product_tag">
+			<img src="{{resources.href}}" alt=""><br>
+			<span>{{this.name}}</span>
+		</label>
+		{{/if}}
+    {{/each}}
+  </div>
+  <div class="content" id="productfilterstab_kids_EU">
+  	<!-- <input type="checkbox" name="EU_productfilter_kids_all" id="EU_productfilter_kids_all" data-sessionvariable="EU_product_filters_kids" data-targetclass="EU_kids" class="productfilter_all">
+	<label for="EU_productfilter_kids_all">
+		{{EU_productfilter_kids_all_selectionstatus}}
+	</label> 
+	<hr>-->
+    {{#each EU_kids}}
+    	{{#if kids_product_in_assets}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter EU_kids tagcheckbox" value="{{_id}}">
+		<label for="productfilter_{{_id}}" class="tag product_tag">
+			<img src="{{resources.href}}" alt=""><br>
+			<span>{{this.name}}</span>
+		</label>
+		{{/if}}
+    {{/each}}
+  </div>
+  <div class="content" id="productfilterstab_accessories_EU">
+  	<!-- <input type="checkbox" name="EU_productfilter_accessories_all" id="EU_productfilter_accessories_all" data-sessionvariable="EU_product_filters_accessories" data-targetclass="EU_accessories" class="productfilter_all">
+	<label for="EU_productfilter_accessories_all">
+		{{EU_productfilter_accessories_all_selectionstatus}}
+	</label> 
+	<hr>-->
+    {{#each EU_accessories}}
+    	{{#if accessories_product_in_assets}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter EU_accessories tagcheckbox" value="{{_id}}">
+		<label for="productfilter_{{_id}}" class="tag product_tag">
+			<img src="{{resources.href}}" alt=""><br>
+			<span>{{this.name}}</span>
+		</label>
+		{{/if}}
+    {{/each}}
+  </div>
+  <div class="content" id="productfilterstab_cases_EU">
+  	<!-- <input type="checkbox" name="EU_productfilter_cases_all" id="EU_productfilter_cases_all" data-sessionvariable="EU_product_filters_cases" data-targetclass="EU_cases" class="productfilter_all">
+	<label for="EU_productfilter_cases_all">
+		{{EU_productfilter_cases_all_selectionstatus}}
+	</label> 
+	<hr>-->
+    {{#each EU_cases}}
+    	{{#if cases_product_in_assets}}
+		<input type="checkbox" name="productfilter_{{_id}}" id="productfilter_{{_id}}" class="productfilter EU_cases tagcheckbox" value="{{_id}}">
+		<label for="productfilter_{{_id}}" class="tag product_tag">
+			<img src="{{resources.href}}" alt=""><br>
+			<span>{{this.name}}</span>
+		</label>
+		{{/if}}
     {{/each}}
   </div>
 </div>
@@ -223,10 +429,13 @@
 </template>
 
 <template name="designFilters">
-	<a href="#" data-reveal-id="designFilterList" class="button">Filter by Design</a>
+	<a href="#" data-reveal-id="designFilterList" class="button small secondary"><img src="/img/designs.png" class="filter_by_products_button" alt="">Filter by Design</a>
 
 	<div id="designFilterList" class="reveal-modal" data-reveal>
 		{{> designFiltersListed}}
+		<hr>
+		<button class="close-reveal-modal applyfilters applyfilters_submit">Apply Filters</button>
+  		<button class="close-reveal-modal applyfilters secondary cancel">Cancel</button>
 	  <a class="close-reveal-modal">&#215;</a>
 	</div>
 </template>
@@ -234,11 +443,22 @@
 <template name="designFiltersListed">
 	<h4>Filter Products by designs</h4>
 	<p>Select one or more designs to find products that have those applied to them.</p>
+	<input type="text" value="Search" class="search"><button class="search_button small secondary">Search</button>
+	<button id="sort_assets_apply" class="secondary">Sort</button>
+	<select name="" id="sort_assets">
+		<option value="az">A-Z</option>
+		<option value="za">Z-A</option>
+		<option value="recent">Date added (newest first)</option>
+		<option value="date">Date added (oldest first)</option>
+	</select>
+	<hr>
 	{{#each designs}}
+		{{#if design_in_assets}}
 		<input type="checkbox" name="designfilter_{{_id}}" id="designfilter_{{_id}}" class="designfilter tagcheckbox" value="{{_id}}">
 		<label for="designfilter_{{_id}}" class="tag design_tag">
 			<img src="{{url}}" alt="">
 		</label>
+		{{/if}}
 	{{/each}}
 </template>
 
@@ -253,15 +473,16 @@
 </template>
 
 <template name="assetFilters">
-	{{#if showFilters}}
-		<aside id="assets_filters">
-			<h3>Apply Filters:</h3>
-			{{> assetFiltersStatuses}}
-			<hr>
-			<h3>Filter by Tag:</h3>
-			{{> assetFiltersTags}}
-		</aside>
-	{{/if}}
+	<h3>Apply Filters:</h3>
+	{{> assetFiltersStatuses}}
+	<hr>
+	<h3>Filter by Tag:</h3>
+	{{> assetFiltersTags}}
+
+	<hr>
+
+	<button class="close-reveal-modal applyfilters">Apply Filters</button>
+	<button class="close-reveal-modal applyfilters secondary cancel">Cancel</button>
 
 </template>
 
@@ -276,12 +497,21 @@
 
 <template name="assetFiltersStatuses">
 	<div id="assetFiltersStatuses">
+		<h5>Approved for Marketplaces:</h5>
 		<!-- ADD the variables for value and ID to be able to filter by them -->
-		<button data-options="align:right" data-dropdown="approved_for_POS_filter" aria-controls="approved_for_POS_filter" aria-expanded="true" class="secondary dropdown-arrow-right">
-		Approved for Marketplaces</button>
+		<!-- <button data-options="align:right" data-dropdown="approved_for_POS_filter" aria-controls="approved_for_POS_filter" aria-expanded="true" class="secondary dropdown-arrow-right">
+		Approved for Marketplaces</button> -->
+		{{> approved_for_POS_filter}}
+
+		<hr>
+
+		<h5>Published on Marketplaces:</h5>
+
 		{{> approved_for_POS_filter}}
 		
-		<h5>Shops:</h5>
+		<hr>
+
+		<h5>Published in Shops:</h5>
 		{{#each assetFilterApprovalShops}}
 			<input type="checkbox" name="assetFiltersPublishedShops" id="assetFiltersPublishedShops_{{_id}}" data-label="publishedshops" data-value="{{_id}}" data-singleOrMultiValue="multi" class="assetFiltersTag tagcheckbox">
 			<label for="assetFiltersPublishedShops_{{_id}}" class="tag">{{shop}}</label>
@@ -291,15 +521,15 @@
 
 		<hr>
 
-		<h5>Used in product creation:</h5>
+		<!-- <h5>Used in product creation:</h5>
 		<input type="checkbox" name="assetFiltersUsage" id="assetFiltersUnused" data-label="usage" data-value="unused" data-singleOrMultiValue="single" class="assetFiltersTag tagcheckbox">
 		<label for="assetFiltersUnused" class="tag">unused</label>
 		<input type="checkbox" name="assetFiltersUsage" id="assetFiltersUsed" data-label="usage" data-value="used" data-singleOrMultiValue="single" class="assetFiltersTag tagcheckbox">
 		<label for="assetFiltersUsed" class="tag">used</label>
 
-		<hr>
+		<hr> -->
 
-		<h5>Review Status:</h5>
+		<!-- <h5>Review Status:</h5>
 		<input type="checkbox" name="assetFiltersReview" id="assetFiltersNotReviewed" data-label="review" data-value="not reviewed" data-singleOrMultiValue="single" class="assetFiltersTag tagcheckbox">
 		<label for="assetFiltersNotReviewed" class="tag">not reviewed</label>
 		<input type="checkbox" name="assetFiltersReview" id="assetFiltersInReview" data-label="review" data-value="in review" data-singleOrMultiValue="single" class="assetFiltersTag tagcheckbox">
@@ -307,20 +537,31 @@
 		<input type="checkbox" name="assetFiltersReview" id="assetFiltersReviewedNotApproved" data-label="review" data-value="reviewed not approved" data-singleOrMultiValue="single" class="assetFiltersTag tagcheckbox">
 		<label for="assetFiltersReviewedNotApproved" class="tag">reviewed (not approved)</label>
 		<input type="checkbox" name="assetFiltersReview" id="assetFiltersReviewedApproved" data-label="review" data-value="reviewed approved" data-singleOrMultiValue="single" class="assetFiltersTag tagcheckbox">
-		<label for="assetFiltersReviewedApproved" class="tag">reviewed (approved)</label>
+		<label for="assetFiltersReviewedApproved" class="tag">reviewed (approved)</label> -->
 
 	</div>
 </template>
 
-<template name="approved_for_POS_filter">
-	<ul id="approved_for_POS_filter" class="f-dropdown content" data-dropdown-content aria-hidden="true" tabindex="-1">
+<template name="published_in_POS_filter">
+	<!-- <ul id="approved_for_POS_filter" class="f-dropdown content" data-dropdown-content aria-hidden="true" tabindex="-1"> -->
 	{{#each assetFilterApprovalCountries}}
-		<li>
+		<!-- <li> -->
 			<input type="checkbox" name="assetFiltersApprovalStatus" id="assetFiltersApprovalStatus_{{_id}}" data-label="approvedForPOS" data-value="{{_id}}" data-singleOrMultiValue="multi" class="assetFiltersTag tagcheckbox">
 			<label for="assetFiltersApprovalStatus_{{_id}}" class="tag">{{country}}</label>
-		</li>
+		<!-- </li> -->
 	{{/each}}
-	</ul>
+	<!-- </ul> -->
+</template>
+
+<template name="approved_for_POS_filter">
+	<!-- <ul id="approved_for_POS_filter" class="f-dropdown content" data-dropdown-content aria-hidden="true" tabindex="-1"> -->
+	{{#each assetFilterApprovalCountries}}
+		<!-- <li> -->
+			<input type="checkbox" name="assetFiltersApprovalStatus" id="assetFiltersApprovalStatus_{{_id}}" data-label="approvedForPOS" data-value="{{_id}}" data-singleOrMultiValue="multi" class="assetFiltersTag tagcheckbox">
+			<label for="assetFiltersApprovalStatus_{{_id}}" class="tag">{{country}}</label>
+		<!-- </li> -->
+	{{/each}}
+	<!-- </ul> -->
 </template>
 
 <template name="designs">
@@ -373,9 +614,57 @@
 				</div>	
 			</div>
 				{{> delete_products}}
+				{{> bulk_create_products}}
 		</div>
 	{{/if}}
 
+</template>
+
+<template name="bulk_create_products">
+	{{#if bulk_creating_products}}
+		<h2>Bulk Create Products</h2>
+		<!-- design selection -->
+		{{#each designs}}
+			<input type="checkbox" name="design_{{_id}}" id="design_{{_id}}" class="bulk_create_design tagcheckbox" value="{{_id}}" data-name="{{name}}">
+			<label for="design_{{_id}}" class="tag design_tag">
+				<img src="{{url}}" alt="">
+			</label>
+		{{/each}}
+		<!-- name -->
+		<input type="text" id="bulk_create_name" value="{{bulk_create_design_name}}">
+		<!-- tags -->
+		{{#each tags}}
+			<input type="checkbox" class="bulk_create_tag tagcheckbox" id="bulk_create_{{tag}}" value="{{_id}}">
+			<label for="bulk_create_{{tag}}" class="tag">{{tag}}</label>
+		{{/each}}
+		<!-- description -->
+		<textarea name="" id="bulk_create_description" cols="30" rows="10"></textarea>
+		<!-- product selection -->
+		<hr>
+		<h3>Global Products</h3>
+		{{#each products_global}}
+			<input type="checkbox" class="bulk_create_product_selection tagcheckbox" id="bulk_create_product_{{_id}}" value="{{_id}}">
+			<label for="bulk_create_product_{{_id}}" class="tag">{{name}}</label>
+		{{/each}}
+		<hr>
+		<h3>North-American Products</h3>
+		{{#each products_na}}
+			<input type="checkbox" class="bulk_create_product_selection tagcheckbox" id="bulk_create_product_{{_id}}" value="{{_id}}">
+			<label for="bulk_create_product_{{_id}}" class="tag">{{name}}</label>
+		{{/each}}
+		<hr>
+		<h3>European Products</h3>
+		{{#each products_eu}}
+			<input type="checkbox" class="bulk_create_product_selection tagcheckbox" id="bulk_create_product_{{_id}}" value="{{_id}}">
+			<label for="bulk_create_product_{{_id}}" class="tag">{{name}}</label>
+		{{/each}}
+			<!-- random function for product selection -->
+			<!-- Global/NA/EU -->
+		<hr>
+		<button id="bulk_create_products_submit" class="primary">Create Products</button>
+	{{else}}
+		<button id="bulk_create_products" class="primary">Bulk Create Products</button>
+	{{/if}}
 </template>
 
 <template name="tag">
@@ -396,38 +685,47 @@
 		<div class="assetcontainer flexigrid">
 			{{#each products}}
 				<div class="flexigrid-item product">
-					<div class="box">
-						{{#if editing_product}}
+					
+					{{#if editing_product}}
+						<div class="box editing">
 							<input type="hidden" id="product_id" value="{{_id}}">
 							<input type="text" id="product_url" value="{{resources.href}}">
 							<input type="text" id="product_name" value="{{name}}">
 							<input type="text" id="product_price" value="{{price.vatIncluded}}">
+							<div id="product_colors_container">
+								{{#each colors}}
+									<input type="checkbox" class="colortag tagcheckbox" id="colortag{{_id}}" value="{{_id}}" checked="{{colortagselection}}">
+									<label for="colortag{{_id}}" class="tag" style="background-color: {{color}}"><!-- {{name}} --></label>
+								{{/each}}
+							</div>
 							<select name="product_category" id="product_category" value="{{category}}">
-								<option value="Men">
+								<option value="Men" {{product_category_men_selected}}>
 									Men
 								</option>
-								<option value="Women" >
+								<option value="Women" {{product_category_women_selected}}>
 									Women
 								</option>
-								<option value="Kids &amp; Babies">
+								<option value="Kids & Babies" {{product_category_kids_selected}}>
 									Kids &amp; Babies
 								</option>
-								<option value="Accessories">
+								<option value="Accessories" {{product_category_accessories_selected}}>
 									Accessories
 								</option>
-								<option value="Cases">
+								<option value="Cases" {{product_category_cases_selected}}>
 									Cases
 								</option>
 							</select>
 							<button id="cancel_product" class="tiny secondary">Cancel</button>
 							<button id="save_product" class="tiny primary">Save</button>
-						{{else}}
+						</div>
+					{{else}}
+						<div class="box {{region}}">
 							<img src="{{resources.href}}" alt="" class="main">
 							<h6>{{name}}</h6>
-							<p><strong name="price">Price: ${{price.vatIncluded}}</strong><br>Commmission: ${{commission}}<br>
-							<em>{{category}}</em></p>
-						{{/if}}
-					</div>
+							<p><strong name="price">Price: ${{price.vatIncluded}}</strong><br><!-- Commmission: ${{commission}}<br> -->
+							<em>{{region}} &mdash; {{category}}</em></p>
+						</div>
+					{{/if}}
 				</div>
 			{{/each}}
 		</div>
@@ -438,147 +736,202 @@
 {{#if showAssets}}
 	<div id="assets">
 	{{> notifications}}
-		<h2 class="title">My Products</h2>
-		{{#if new_edit_asset}}
-			<div class="assets">
-				<input type="hidden" id="newAssetId" value="{{newAssetId}}">
-				<img src="{{editAssetUrl}}" alt="" class="edit_asset_img">
-				<hr>
-				
+		{{#if assets_zero_state}}
+			<div class="assetcontainer flexigrid">
 				{{#each designs}}
-					<input type="checkbox" name="design_{{_id}}" id="design_{{_id}}" class="newAssetDesign tagcheckbox" checked="{{newAssetDesignSelection}}" value="{{_id}}">
-					<label for="design_{{_id}}" class="tag design_tag">
-						<img src="{{url}}" alt="">
-					</label>
-				{{/each}}
-
-				<input type="checkbox" class="newAssetTag tagcheckbox" id="newAsset{{tag}}" value="{{_id}}" checked="{{newAssetTagSelection}}">
-						<label for="newAsset{{tag}}" class="tag">{{tag}}</label>
-
-				<hr>
-				
-				<input type="text" id="newAssetName" placeholder="Name" value="{{editAssetName}}"><br>
-				<input type="text" id="newAssetUrl" placeholder="Url" value="{{editAssetUrl}}">
-				<br>
-				<textarea type="text" id="newAssetDescription" placeholder="Description">{{newAssetDescription}}</textarea>
-				<br>
-				<select type="text" id="newAssetProduct">
-					<option value="">{{newAssetProduct}}</option>
-					{{#each products}}
-						<option value="{{_id}}" selected="{{newAssetProduct}}">{{name}}</option>
-					{{/each}}
-				</select><br>
-				<div id="newAssetTagContainer">
-				<h3>Select Tags</h3>
-					{{#each tags}}
-						<input type="checkbox" class="newAssetTag tagcheckbox" id="newAsset{{tag}}" value="{{_id}}" checked="{{newAssetTagSelection}}">
-						<label for="newAsset{{tag}}" class="tag">{{tag}}</label>
-					{{/each}}
-				</div>
-
-				<hr>
-				<h2>System Metadata</h2>
-				<h3>File Format (Bitmap/Vector)</h3>
-				<input type="radio" name="newAssetFileFormat" id="newAssetFileFormatVector" value="vector" checked="{{newAssetVector}}">
-				<label for="newAssetFileFormatVector">Vector</label>
-				<input type="radio" name="newAssetFileFormat" id="newAssetFileFormatBitmap" value="bitmap" checked="{{newAssetBitmap}}">
-				<label for="newAssetFileFormatBitmap">Bitmap</label>
-
-				<!-- <h3>Usage</h3>
-				<input type="radio" name="newAssetUsage" id="newAssetUsageUnused" value="unused" checked="{{newAssetUnused}}">
-				<label for="newAssetUsageUnused">Unsed</label>
-				<input type="radio" name="newAssetUsage" id="newAssetUsageUsed" value="used" checked="{{newAssetUsed}}">
-				<label for="newAssetUsageUsed">Used</label> -->
-
-				<h3>Review</h3>
-				<input type="radio" name="newAssetReview" id="newAssetReviewNotReviewed" value="not reviewed" checked="{{newAssetNotReviewed}}">
-				<label for="newAssetReviewNotReviewed">Not Reviewed</label>
-				<input type="radio" name="newAssetReview" id="newAssetReviewInReview" value="in review" checked="{{newAssetInReview}}">
-				<label for="newAssetReviewInReview">In Review</label>
-				<input type="radio" name="newAssetReview" id="newAssetReviewReviewedNotApproved" value="reviewed not approved" checked="{{newAssetReviewedNotApproved}}">
-				<label for="newAssetReviewReviewed">Reviewed (Not Approved)</label>
-				<input type="radio" name="newAssetReview" id="newAssetReviewReviewedApproved" value="reviewed approved" checked="{{newAssetReviewedApproved}}">
-				<label for="newAssetReviewReviewed">Reviewed (Approved)</label>
-
-				
-
-				{{#if newAssetIsApproved}}
-				<h3>Approved for Point of Sale:</h3>
-					<div class="clearfix">
-						{{#each POS_MP_Country}}
-							<input type="checkbox" class="newAssetApprovedForPOS tagcheckbox" id="approvedForPOS_{{country}}" value="{{_id}}" checked="{{assetFilterApprovalCountries}}">
-							<label for="approvedForPOS_{{country}}" class="tag">{{country}}</label>
-						{{/each}}
-					</div>
-				{{/if}}
-
-				<h3>Published to Spreadshirt Marketplaces</h3>
-				<input type="radio" name="newAssetPublished" id="newAssetPublishedUnpublished" value="unpublished" checked="{{newAssetUnpublished}}">
-				<label for="newAssetPublishedUnpublished">Unpublished</label>
-				<input type="radio" name="newAssetPublished" id="newAssetPublishedPublished" value="published" checked="{{newAssetPublished}}">
-				<label for="newAssetPublishedPublished">Published</label>
-				{{#if newAssetIsPublished}}
-					<div class="clearfix">
-						{{#each countries}}
-							<input type="checkbox" class="newAssetPublishedCountry tagcheckbox" id="{{country}}" value="{{_id}}" checked="{{newAssetPublishedCountries}}">
-							<label for="{{country}}" class="tag">{{country}}</label>
-						{{/each}}
-					</div>
-				{{/if}}
-
-				<h3>Published to Shops</h3>
-				{{#each shops}}
-					<input type="checkbox" class="newAssetPublishedShop tagcheckbox" id="{{shop}}" value="{{_id}}" checked="{{newAssetPublishedShops}}">
-					<label for="{{shop}}" class="tag">{{shop}}</label>
-				{{/each}}
-
-				<hr>
-					
-				<button id="btnCancelAsset" value="cancel" class="secondary small">Cancel</button>
-				<button id="btnSaveAsset" value="save" class="small">Save</button>
-
-
-			</div>
-		{{else}}
-			<img src="img/grid.png" alt="" class="button tiny secondary" style="width: 25px; padding: 5px;" id="assetgridview">
-			<img src="img/table.png" alt="" class="button tiny secondary" style="width: 25px; padding: 5px;" id="assetlistview">
-			{{#if assetgridview}}
-				<div class="assetcontainer flexigrid">
-					<div class="flexigrid-item" id="btnNewAsset">
+				{{#if design_in_assets}}
+					<div class="flexigrid-item zerostate_asset {{single_or_multiple}} " id="{{_id}}">
 						<div class="box">
-							<div class="dottedline">
-								<h1>&plus;</h1>
-								<strong>create new Product</strong>
-							</div>
+							<figure style="background: url({{zero_state_product_url}}) no-repeat; background-size: cover;" class="asset_view">
+									<img src="{{design_url}}">
+							</figure>
+							<h4><strong>{{name}}</strong><br>
+							({{number_of_products}})
+							</h4>
 						</div>
 					</div>
-					{{#each assets}}
-						{{> asset}}
-					{{/each}}
+					{{/if}}
+				{{/each}}
+			</div>
+		{{else}}
+			{{#if new_edit_asset}}
+				<div class="assets">
+					<input type="hidden" id="newAssetId" value="{{newAssetId}}">
+					<!-- <img src="{{editAssetUrl}}" alt="" class="edit_asset_img">
+					<hr> -->
+					<!-- <div class="flexigrid-item">
+						<div class="box">
+							<figure style="width: 200px; height: 200px; background: url({{product_url}}) left top no-repeat; background-size: cover; outline: 1px solid gray;" class="asset_view">
+							{{product_url}}
+								{{#each designs}}
+									<img src="{{design_url}}"><br>
+								{{/each}}
+							</figure>
+						</div>
+					</div> -->
+					
+					<!-- {{#each designs}}
+						<input type="checkbox" name="design_{{_id}}" id="design_{{_id}}" class="newAssetDesign tagcheckbox" checked="{{newAssetDesignSelection}}" value="{{_id}}">
+						<label for="design_{{_id}}" class="tag design_tag">
+							<img src="{{url}}" alt="">
+						</label>
+					{{/each}} -->
+
+					<input type="checkbox" class="newAssetTag tagcheckbox" id="newAsset{{tag}}" value="{{_id}}" checked="{{newAssetTagSelection}}">
+							<label for="newAsset{{tag}}" class="tag">{{tag}}</label>
+
+					<hr>
+					
+					<input type="text" id="newAssetName" placeholder="Name" value="{{editAssetName}}"><br>
+					<!-- <input type="text" id="newAssetUrl" placeholder="Url" value="{{editAssetUrl}}"> -->
+					<br>
+					<textarea type="text" id="newAssetDescription" placeholder="Description">{{newAssetDescription}}</textarea>
+					<br>
+					<select type="text" id="newAssetProduct">
+						<option value="">{{newAssetProduct}}</option>
+						{{#each products}}
+							<option value="{{_id}}" selected="{{newAssetProduct}}">{{name}}</option>
+						{{/each}}
+					</select><br>
+					<div id="newAssetTagContainer">
+					<h3>Select Tags</h3>
+						{{#each tags}}
+							<input type="checkbox" class="newAssetTag tagcheckbox" id="newAsset{{tag}}" value="{{_id}}" checked="{{newAssetTagSelection}}">
+							<label for="newAsset{{tag}}" class="tag">{{tag}}</label>
+						{{/each}}
+					</div>
+
+					<hr>
+					<!-- <h2>System Metadata</h2>
+					<h3>File Format (Bitmap/Vector)</h3>
+					<input type="radio" name="newAssetFileFormat" id="newAssetFileFormatVector" value="vector" checked="{{newAssetVector}}">
+					<label for="newAssetFileFormatVector">Vector</label>
+					<input type="radio" name="newAssetFileFormat" id="newAssetFileFormatBitmap" value="bitmap" checked="{{newAssetBitmap}}">
+					<label for="newAssetFileFormatBitmap">Bitmap</label> -->
+
+					<!-- <h3>Usage</h3>
+					<input type="radio" name="newAssetUsage" id="newAssetUsageUnused" value="unused" checked="{{newAssetUnused}}">
+					<label for="newAssetUsageUnused">Unsed</label>
+					<input type="radio" name="newAssetUsage" id="newAssetUsageUsed" value="used" checked="{{newAssetUsed}}">
+					<label for="newAssetUsageUsed">Used</label> -->
+
+					<!-- <h3>Review</h3>
+					<input type="radio" name="newAssetReview" id="newAssetReviewNotReviewed" value="not reviewed" checked="{{newAssetNotReviewed}}">
+					<label for="newAssetReviewNotReviewed">Not Reviewed</label>
+					<input type="radio" name="newAssetReview" id="newAssetReviewInReview" value="in review" checked="{{newAssetInReview}}">
+					<label for="newAssetReviewInReview">In Review</label>
+					<input type="radio" name="newAssetReview" id="newAssetReviewReviewedNotApproved" value="reviewed not approved" checked="{{newAssetReviewedNotApproved}}">
+					<label for="newAssetReviewReviewed">Reviewed (Not Approved)</label>
+					<input type="radio" name="newAssetReview" id="newAssetReviewReviewedApproved" value="reviewed approved" checked="{{newAssetReviewedApproved}}">
+					<label for="newAssetReviewReviewed">Reviewed (Approved)</label>
+
+					
+
+					{{#if newAssetIsApproved}}
+					<h3>Approved for Point of Sale:</h3>
+						<div class="clearfix">
+							{{#each POS_MP_Country}}
+								<input type="checkbox" class="newAssetApprovedForPOS tagcheckbox" id="approvedForPOS_{{country}}" value="{{_id}}" checked="{{assetFilterApprovalCountries}}">
+								<label for="approvedForPOS_{{country}}" class="tag">{{country}}</label>
+							{{/each}}
+						</div>
+					{{/if}}
+
+					<h3>Published to Spreadshirt Marketplaces</h3>
+					<input type="radio" name="newAssetPublished" id="newAssetPublishedUnpublished" value="unpublished" checked="{{newAssetUnpublished}}">
+					<label for="newAssetPublishedUnpublished">Unpublished</label>
+					<input type="radio" name="newAssetPublished" id="newAssetPublishedPublished" value="published" checked="{{newAssetPublished}}">
+					<label for="newAssetPublishedPublished">Published</label>
+					{{#if newAssetIsPublished}}
+						<div class="clearfix">
+							{{#each countries}}
+								<input type="checkbox" class="newAssetPublishedCountry tagcheckbox" id="{{country}}" value="{{_id}}" checked="{{newAssetPublishedCountries}}">
+								<label for="{{country}}" class="tag">{{country}}</label>
+							{{/each}}
+						</div>
+					{{/if}}
+
+					<h3>Published to Shops</h3>
+					{{#each shops}}
+						<input type="checkbox" class="newAssetPublishedShop tagcheckbox" id="{{shop}}" value="{{_id}}" checked="{{newAssetPublishedShops}}">
+						<label for="{{shop}}" class="tag">{{shop}}</label>
+					{{/each}} -->
+
+					<hr>
+						
+					<button id="btnCancelAsset" value="cancel" class="secondary small">Cancel</button>
+					<button id="btnSaveAsset" value="save" class="small">Save</button>
+					{{#if editing_asset}}
+						<button id="btnDeleteAsset" value="save" class="small alert">Delete</button>
+					{{/if}}
+
 				</div>
 			{{else}}
-				<div class="assetcontainer listview">
-					<button id="btnNewAsset" class="secondary tiny">create new Product</button><br><br>
-					<table>
-						<thead>
-							<td></td>
-							<td>Preview</td>
-							<td>Name</td>
-							<td>Description</td>
-							<td>Tags</td>
-							<td>File format</td>
-							<td>Usage</td>
-							<td>Published</td>
-							<td>Review</td>
-						</thead>
+				<div class="button small secondary select_all">
+					<input type="checkbox" name="" id="assets_select_all">
+				</div>
+				<img src="img/grid.png" alt="" class="button small secondary" id="assetgridview">
+				<img src="img/table.png" alt="" class="button small secondary" id="assetlistview">
+				<select name="" id="assets_status">
+					<option value="All">Show All Products</option>
+					<option value="Unpublished">Unpublished</option>
+					<option value="In Review">In Review</option>
+					<option value="Rejected">Reviewed (rejected)</option>
+					<option value="Approved">Reviewed (approved)</option>
+					<option value="Published">Published</option>
+				</select>
+				<button id="show_assets_by_status" class="secondary">Show</button>
+				
+
+
+				<button id="sort_assets_apply" class="secondary">Sort</button>
+				<select name="" id="sort_assets">
+					<option value="az">A-Z</option>
+					<option value="za">Z-A</option>
+					<option value="recent">Date added (newest first)</option>
+					<option value="date">Date added (oldest first)</option>
+				</select>
+				
+				{{#if assetgridview}}
+					<div class="assetcontainer flexigrid">
+						<!-- <div class="flexigrid-item" id="btnNewAsset">
+							<div class="box">
+								<div class="dottedline">
+									<strong>create new Product</strong> -->
+								<!-- </div> -->
+							<!-- </div>
+						</div> -->
 						{{#each assets}}
 							{{> asset}}
 						{{/each}}
-					</table>
-				</div>
+					</div>
+				{{else}}
+					<div class="assetcontainer listview">
+						<!-- <button id="btnNewAsset" class="secondary tiny">create new Product</button><br><br> -->
+						<div class="tablecontainer">
+							<table>
+								<thead>
+									<td></td>
+									<td class="asset_listview_preview_container">Preview</td>
+									<td>Name</td>
+									<td>Designs</td>
+									<td>Description</td>
+									<td>Tags</td>
+									<!-- <td>File format</td>
+									<td>Usage</td>-->
+									<td>Review</td>
+									<td>Published</td>
+									
+								</thead>
+								{{#each assets}}
+									{{> asset}}
+								{{/each}}
+							</table>
+						</div>	
+					</div>
+				{{/if}}
 			{{/if}}
 		{{/if}}
-
 		
 	</div>
 {{/if}}
@@ -590,10 +943,12 @@
 		{{#if assetnotfilteredbyproduct}}
 		
 			{{#if assetnotfilteredbystatus}}
+			{{#if assetnotfilteredbypublishstatus}}
 				{{#if assetgridview}}
-				<div class="flexigrid-item" id="{{_id}}">
+				<div class="flexigrid-item {{is_asset_selected}}" id="{{_id}}">
 					<div class="box">
-						<figure style="background: url({{product_url}}) no-repeat; background-size: contain;" class="asset_view">
+						<div class="label {{status}}">{{status}}</div>
+						<figure style="background: url({{product_url}}) no-repeat; background-size: cover;" class="asset_view">
 							{{#each designs}}
 								<img src="{{design_url}}">
 							{{/each}}
@@ -605,34 +960,31 @@
 
 				{{else}}
 
-				<tr>
-					<td><input type="checkbox" name="" id=""></td>
-					<td><img src="{{url}}" alt="{{description}}"></td>
+				<tr id="{{_id}}" class="{{is_asset_selected_listview}}">
+					<td><input type="checkbox" name="{{_id}}" id="checkbox_{{_id}}" class="asset_selector" {{is_asset_checked}}></td>
+					<td><figure style="background: url({{product_url}}) no-repeat; background-size: cover;" class="asset_listview_preview">
+							<img src="{{firstdesign}}" class="asset_listview_preview_design">
+						</figure></td>
 					<td><strong>{{name}}</strong></td>
+					<td>{{#each designs}}
+								<img src="{{design_url}}" class="asset_listview_design">
+							{{/each}}
+					</td>
 					<td>{{description}}</td>
 					<td>
 						{{#each appliedtags}}
 							{{> singletag}}
 						{{/each}}
 					</td>
-					<td>{{fileformat}}</td>
-					<td>{{usage}}</td>
+					<!-- <td>{{fileformat}}</td> -->
+					<!-- <td>{{usage}}</td> -->
+					<td>{{status}}</td>
 					<td>{{published}}<br>{{publishedcountries}}</td>
-					<td>{{review}}</td>
+					
 				</tr>
 				{{/if}}
 			{{/if}}
-		{{/if}}
-
-		{{#if assetnotfilteredbyproduct_men}}
-		{{#if assetnotfilteredbyproduct_women}}
-		{{#if assetnotfilteredbyproduct_kids}}
-		{{#if assetnotfilteredbyproduct_accessories}}
-		{{#if assetnotfilteredbyproduct_cases}}
-		{{/if}}
-		{{/if}}
-		{{/if}}
-		{{/if}}
+			{{/if}}
 		{{/if}}
 		
 		{{/if}}

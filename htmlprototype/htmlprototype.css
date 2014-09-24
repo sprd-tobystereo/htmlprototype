@@ -13,15 +13,49 @@ h1, h2, h3, h4, h5 {
 
 /* CSS declarations go here */
 .listview {
-  overflow: scroll; }
+  width: 100%;
+  overflow: hidden; }
+  .listview .tablecontainer {
+    width: 100%;
+    overflow: scroll; }
+  .listview table {
+    width: 1200px; }
   .listview td {
     vertical-align: top; }
   .listview thead td:nth-of-type(1) {
     width: 20px; }
   .listview thead td:nth-of-type(2) {
-    width: 75px; }
+    width: 125px; }
   .listview thead td:nth-of-type(3) {
     width: 150px; }
+  .listview thead td:nth-of-type(4) {
+    width: 150px; }
+  .listview thead td:nth-of-type(5) {
+    width: 250px; }
+  .listview thead td:nth-of-type(6) {
+    width: 150px; }
+  .listview tr:nth-of-type(odd).selected {
+    background-color: #65d0c7; }
+  .listview tr:nth-of-type(even).selected {
+    background-color: #8cdcd5; }
+  .listview .asset_listview_preview {
+    padding: 0;
+    margin: 0;
+    width: 100px;
+    height: 100px; }
+  .listview .asset_listview_design {
+    display: block;
+    float: left;
+    width: 50px;
+    max-height: 50px;
+    margin-right: 5px;
+    outline: 1px solid #D7D7D7; }
+  .listview .asset_listview_preview_design {
+    width: 40%;
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    padding-top: 20%; }
 
 input[type=radio].tagcheckbox, input[type=checkbox].tagcheckbox {
   display: block;
@@ -35,13 +69,13 @@ input[type=radio].tagcheckbox, input[type=checkbox].tagcheckbox {
   input[type=radio].tagcheckbox + .tag, input[type=checkbox].tagcheckbox + .tag {
     display: block;
     float: left;
-    background: #d7d7d7;
+    background: #D7D7D7;
     padding: 0 10px;
     line-height: 2em;
     overflow: hidden; }
   input[type=radio].tagcheckbox:checked + .tag, input[type=checkbox].tagcheckbox:checked + .tag {
-    background: #1cb3a6;
-    color: white; }
+    background: #1CB3A6;
+    color: #FFFFFF; }
 
 .box {
   display: block;
@@ -55,7 +89,7 @@ input[type=radio].tagcheckbox, input[type=checkbox].tagcheckbox {
     font-size: 1rem;
     height: 3rem; }
   .box .edit_asset_button {
-    background-color: #d7d7d7;
+    background-color: #D7D7D7;
     width: 100%;
     padding: 1em !important;
     margin: 0 !important; }
@@ -67,7 +101,7 @@ input[type=radio].tagcheckbox, input[type=checkbox].tagcheckbox {
   .box:hover {
     background-color: #dbf3f1; }
     .box:hover .edit_asset_button {
-      background-color: #1cb3a6; }
+      background-color: #1CB3A6; }
 
 #newAssetTagContainer {
   display: block;
@@ -92,7 +126,7 @@ input[type=radio].tagcheckbox, input[type=checkbox].tagcheckbox {
 aside {
   width: 100%;
   display: block;
-  border: 1px dashed #1cb3a6;
+  border: 1px dashed #1CB3A6;
   padding: 10px;
   float: left;
   height: auto; }
@@ -126,25 +160,32 @@ nav {
   padding: 10px;
   background-color: none;
   font-family: 'Roboto Slab', serif !important;
-  color: white; }
+  color: #FFFFFF; }
   .nav_item.active {
-    background-color: #1cb3a6;
+    background-color: #1CB3A6;
     color: #413231; }
+
+#nav_tags {
+  color: #413231 !important; }
 
 .dottedline {
   width: auto;
   height: 95%;
-  border: 2px dashed #5e5e5e;
+  border: 2px dashed #5E5E5E;
   margin: 10px; }
 
 #btnNewAsset {
   text-align: center;
-  color: #5e5e5e; }
+  color: #5E5E5E; }
   #btnNewAsset h1 {
     line-height: 7.5rem;
     margin: 20px 0 0;
-    color: #5e5e5e;
+    color: #5E5E5E;
     font-size: 7.5rem; }
+  #btnNewAsset .box {
+    background: #E9E9E9 url("/img/add.png") 50% 40% no-repeat;
+    background-size: 40%;
+    padding-top: 90%; }
 
 .flexigrid {
   display: block;
@@ -163,7 +204,7 @@ nav {
       margin: 0;
       clear: both; }
       .flexigrid .flexigrid-item figure img {
-        background-color: #d7d7d7;
+        background-color: #D7D7D7;
         float: left;
         width: 15%;
         margin-top: -10px;
@@ -185,17 +226,14 @@ nav {
         .flexigrid .flexigrid-item figure {
           height: 135px; } }
     .flexigrid .flexigrid-item.selected .box {
-      -webkit-box-shadow: none !important;
-              box-shadow: none !important;
+      box-shadow: none !important;
       background-color: #7dd1ca; }
 
 .shadow-light, .box {
-  -webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.25);
-          box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.25); }
+  box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.25); }
 
 .shadow-dark, .box:hover {
-  -webkit-box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75);
-          box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75); }
+  box-shadow: 2px 2px 5px 0px rgba(50, 50, 50, 0.75); }
 
 .box {
   -webkit-transition: all 0.3s 0s ease-out;
@@ -229,9 +267,9 @@ nav {
 .productfilterstab dd {
   width: 20%;
   text-align: center;
-  outline: 1px solid #d7d7d7; }
+  outline: 1px solid #D7D7D7; }
   .productfilterstab dd.active a {
-    background: #1cb3a6 !important; }
+    background: #1CB3A6 !important; }
 .productfilterstab a {
   padding: 10px 0 !important;
   font-size: 80% !important;
@@ -239,36 +277,40 @@ nav {
 .productfilterstab img {
   max-height: 50px; }
 
-.productfilterstabcontent {
-  outline: 1px solid #d7d7d7;
+.region_productfilterstab dd.active a {
+  background-color: #1CB3A6; }
+
+.region_productfilterstabcontent {
+  outline: 1px solid #D7D7D7;
   padding: 10px; }
-  .productfilterstabcontent .product_tag {
+  .region_productfilterstabcontent .product_tag {
     margin: 1% !important;
     height: 145px;
     width: 31%; }
     @media screen and (min-width: 480px) {
-      .productfilterstabcontent .product_tag {
+      .region_productfilterstabcontent .product_tag {
         height: 145px;
         width: 14.6%; } }
     @media screen and (min-width: 800px) {
-      .productfilterstabcontent .product_tag {
+      .region_productfilterstabcontent .product_tag {
         height: 145px;
         width: 14.6%; } }
-    .productfilterstabcontent .product_tag img {
+    .region_productfilterstabcontent .product_tag img {
       margin: 5px auto;
-      max-height: 100px; }
-  .productfilterstabcontent span {
+      max-height: 100px !important; }
+  .region_productfilterstabcontent span {
     text-align: center;
     display: block;
     font-size: 0.7rem;
     line-height: 0.8rem; }
 
 #appliedfilters {
-  outline: 1px solid #d7d7d7;
-  overflow: hidden; }
+  outline: 1px solid #D7D7D7;
+  overflow: hidden;
+  padding: 10px 10px 0; }
   #appliedfilters .filter_tag {
     display: block;
-    background: #d7d7d7;
+    background: #D7D7D7;
     padding: 10px;
     margin: 0 10px 10px 0;
     float: left;
@@ -283,7 +325,7 @@ nav {
       line-height: .6rem;
       border-radius: 20px;
       padding: 5px;
-      background-color: white;
+      background-color: #FFFFFF;
       color: #413231;
       float: right;
       margin: 0; }
@@ -292,3 +334,161 @@ nav {
       float: left;
       margin: 0 10px 0 0;
       font-size: 80%; }
+
+.editing_product .editing {
+  height: 610px; }
+
+input[type=checkbox].colortag + .tag {
+  width: 25px;
+  height: 25px;
+  border-radius: 0 !important;
+  border: 4px solid #D7D7D7; }
+
+input[type=checkbox]:checked.colortag + .tag {
+  border-radius: 0 !important;
+  border: 4px solid #1CB3A6; }
+
+.Global:before {
+  display: block;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  content: "\ ";
+  background: url("/img/global_black.png") left top no-repeat;
+  background-size: cover; }
+
+.logo {
+  display: block;
+  float: left;
+  width: 50px;
+  height: 65px;
+  background: url("/img/logo_small.png") left top no-repeat;
+  margin-left: 50px; }
+
+.bulkactions {
+  display: block;
+  width: 330px;
+  float: right; }
+  .bulkactions p {
+    width: 120px;
+    float: left; }
+  .bulkactions select {
+    width: 250px;
+    height: 79px;
+    float: left; }
+  .bulkactions button {
+    float: right;
+    height: 79px; }
+
+#assetgridview, #assetlistview, .select_all {
+  float: left;
+  margin-right: 5px;
+  width: 37px;
+  padding: 10px; }
+
+.select_all {
+  padding: 0 !important;
+  width: 37px !important;
+  height: 37px; }
+  .select_all input[type=checkbox] {
+    width: 30px;
+    margin: 10px; }
+
+#sort_assets {
+  display: block;
+  float: right;
+  width: 250px; }
+
+#sort_assets_apply {
+  width: 73px;
+  height: 37px;
+  padding: 10px;
+  float: right;
+  margin: 0 -10px 0 7px; }
+
+#assets_status {
+  display: block;
+  float: left;
+  width: 250px; }
+
+#show_assets_by_status {
+  margin-left: 5px;
+  height: 37px;
+  padding: 10px;
+  float: left; }
+
+.applyfilters {
+  display: block;
+  position: relative !important;
+  float: right;
+  font-size: 1rem !important;
+  color: white !important;
+  font-weight: normal !important;
+  margin-right: 10px; }
+  .applyfilters.cancel {
+    color: #413231 !important; }
+
+.search {
+  width: 25% !important;
+  float: left; }
+
+.search_button {
+  margin-left: 10px;
+  float: left;
+  height: 37px; }
+
+.filter_by_products_button {
+  width: 50px;
+  margin-right: 10px; }
+
+.label {
+  margin: -5px 0 0 -40px !important;
+  -webkit-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  padding: 5px 40px 5px 35px; }
+  .label.In.Review {
+    background-color: #FFF266 !important;
+    color: #413231; }
+  .label.Published {
+    background-color: #4CBF4C !important; }
+  .label.Unpublished {
+    background-color: #D7D7D7 !important;
+    color: #413231; }
+  .label.Approved {
+    background-color: #1CB3A6 !important; }
+  .label.Rejected {
+    background-color: #D96666 !important; }
+
+.secondary_select_option {
+  color: #E9E9E9 !important; }
+
+.zerostate_asset {
+  margin: 0 40px 40px 40px !important;
+  text-align: center; }
+
+.zero_state_multiple:before {
+  display: block;
+  width: 230px;
+  height: 300px;
+  margin: 0 !important;
+  content: "\ ";
+  background-color: #e1e1e1;
+  -webkit-transform: rotate(5deg);
+      -ms-transform: rotate(5deg);
+          transform: rotate(5deg);
+  position: absolute;
+  z-index: -1; }
+.zero_state_multiple:after {
+  display: block;
+  width: 230px;
+  height: 300px;
+  margin: 0 !important;
+  content: "\ ";
+  background-color: gainsboro;
+  -webkit-transform: rotate(-5deg);
+      -ms-transform: rotate(-5deg);
+          transform: rotate(-5deg);
+  position: absolute;
+  margin-top: -300px !important;
+  z-index: -2; }
